@@ -2,7 +2,8 @@
 import { columns } from '@/components/page/product/table/column'
 import { toast } from '@/components/ui/toast'
 import type { SortMapper } from '@/composables/useSortQuery'
-import { type Page, type Product } from '@/utils/types'
+import type { Page } from '@/types'
+import type { Product } from '@/types/products/resTypes'
 import { RouterLink } from 'vue-router'
 
 const sortMapper: SortMapper<Product> = {

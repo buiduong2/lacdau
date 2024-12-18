@@ -5,7 +5,7 @@ const { data: product,error } = await useAsyncData('products', () =>
 	$fetch(`/api/products/${route.params.id}`)
 )
 
-if (error || !product.value) {
+if (error.value || !product.value) {
 	throw createError({ status: 404, message: 'Not Found' })
 }
 const breadcrumbs: Breadcrumb[] = useCategoryStore().getBreadcrumbById(

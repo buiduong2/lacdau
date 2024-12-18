@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {
-  type ProductRelateInfo,
-  type RelateGroupCreate,
-  type RelateInfoUpdate,
-} from '@/utils/types'
+import type {
+  ProductRelateInfo,
+  RelateGroupCreate,
+  RelateInfoUpdate,
+} from '@/types/relate-groups/reqTypes'
 import { useField, useFieldArray } from 'vee-validate'
 type FieldName = keyof RelateGroupCreate
 

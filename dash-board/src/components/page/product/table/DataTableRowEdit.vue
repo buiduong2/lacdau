@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { ProductUpdate } from '@/types/products/reqTypes'
 import type { Product } from '@/types/products/resTypes'
-import type { ProductUpdate } from '@/types/productsTypes'
 
 const props = defineProps<{ product: Product }>()
 const emit = defineEmits<{
