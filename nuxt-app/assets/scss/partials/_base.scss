@@ -1,0 +1,200 @@
+// Định nghĩa các cái class hay sử dụng
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: "Mulish", sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 1.3rem;
+}
+
+img {
+    display: block;
+}
+
+
+body {
+    background-color: #f5f5f5;
+}
+
+.icon {
+    background: url(../icons/sprite.png);
+    background-size: 290px;
+}
+
+.icon {
+    width: 22px;
+    height: 28px;
+    display: inline-block;
+    vertical-align: middle;
+
+    &.icon-map {
+        background-position: -7px -3px;
+    }
+
+    &.icon-headphone {
+        background-position: -47px -4px;
+    }
+
+    &.icon-shopee {
+        background: url(../icons/shopee.png) no-repeat;
+        background-size: 20px;
+        background-position: 0 3px;
+    }
+
+    &.icon-lazada {
+        background: url(../icons/Lazada.png) no-repeat;
+        background-size: 20px;
+        background-position: 0 4.5px;
+    }
+
+    &.icon-news {
+        background-position: -134px -1px;
+    }
+
+    &.icon-user {
+        background-position: -177px -5px;
+        width: 24px;
+    }
+
+    &.icon-nav {
+        background-position: -7px -39px;
+        width: 28px;
+        height: 42px;
+    }
+
+    &.icon-search {
+        background-position: -50px -41px;
+        width: 32px;
+        height: 42px;
+    }
+
+    &.icon-phone {
+        width: 32px;
+        height: 32px;
+        background-position: -97px -52px;
+    }
+
+    &.icon-thunder {
+        background-position: -155px -52px;
+        width: 32px;
+        height: 32px;
+    }
+
+    &.icon-cart {
+        background-position: -209px -52px;
+        width: 48px;
+        height: 32px;
+    }
+
+    &.icon-grid {
+
+        width: 21px;
+        height: 25px;
+        background-size: 253px;
+        background-position: -228px -158px;
+
+        &.active {
+            background-position: -228px -191px;
+        }
+    }
+
+    &.icon-list {
+        background-position: -228px -93px;
+        width: 21px;
+        height: 25px;
+        background-size: 253px;
+
+        &.active {
+
+            background-position: -228px -125px;
+        }
+    }
+
+}
+
+
+.icon-star {
+    background-image: url("/assets/icons/star-icon-2022.png");
+    width: 75px;
+    height: 16px;
+    vertical-align: text-bottom;
+    display: inline-block;
+    background-repeat: no-repeat;
+
+    @for $i from 1 through 5 {
+        &.star-#{$i} {
+            background-position: -1px #{-(5- $i)* 20 - 2}px;
+        }
+    }
+}
+
+.icon-cat {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    filter: brightness(0);
+
+    &.cat-keyboard {
+        background: url(/assets/icons/cat_icon_2_1657088479.png) center/contain no-repeat;
+    }
+
+    &.cat-controller {
+        background: url(/assets/icons/cat_icon_1_1657088491.png) center/contain no-repeat;
+    }
+
+    &.cat-screen {
+        background: url(/assets/icons/cat_icon_3_1657088498.png) center/contain no-repeat;
+    }
+
+    &.cat-box {
+        background: url(/assets/icons/cat_icon_4_1657088519.png) center/contain no-repeat;
+    }
+
+    &.cat-lamp {
+        background: url(/assets/icons/cat_icon_5_1657088610.png) center/contain no-repeat;
+    }
+
+    &.cat-pump {
+        background: url(/assets/icons/cat_icon_6_1657088507.png) center/contain no-repeat;
+    }
+
+    &.cat-chair {
+        background: url(/assets/icons/cat_icon_7_1657088514.png) center/contain no-repeat;
+    }
+
+    &.cat-table {
+        background: url(/assets/icons/cat_icon_8_1657088601.png) center/contain no-repeat;
+    }
+
+    &.cat-usb {
+        background: url(/assets/icons/cat_icon_9_1657088526.png) center/contain no-repeat;
+    }
+
+    &.cat-fan {
+        background: url(/assets/icons/cat_icon_10_1657088618.png) center/contain no-repeat;
+    }
+
+
+}
+
+.product-cart {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    background: url(/assets/icons/p-cart.png) center/contain no-repeat;
+    background-size: 20px;
+}
+
+a:hover {
+    color: #29a07e;
+}

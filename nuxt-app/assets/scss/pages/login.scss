@@ -1,0 +1,28 @@
+@use "../components/header";
+@use "../components/breadcrumb";
+@use "../components/form";
+
+.section-login {
+    padding-block: 16px;
+    background-color: #fff;
+    font-size: 1.4rem;
+
+    .section-title {
+        line-height: 21px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+
+    .section-detail {
+        .section-para {
+            margin-bottom: 16px;
+            line-height: 21px;
+        }
+
+        .section-link {
+            font-size: 1.4rem;
+            color: #007bff;
+            font-weight: 700;
+        }
+    }
+}

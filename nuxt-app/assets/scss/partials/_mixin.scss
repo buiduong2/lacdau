@@ -1,0 +1,89 @@
+// Định nghĩa các cái mixin
+//Place Holder thật ra ít dùng
+@use "sass:map";
+
+@mixin line-clamp($num) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: $num;
+}
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+
+@mixin media($name) {
+    @if ($name == "xs") {
+        @media screen and (max-width: 576px) {
+            @content;
+        }
+    } @else {
+        $value: map.get($grid-breakpoints, $name);
+        @media screen and (min-width: $value) {
+            @content;
+        }
+    }
+}
+
+@mixin media-between-x-y($name-x, $name-y) {
+    $value-y: map.get($grid-breakpoints, $name-y);
+    $value-x: map.get($grid-breakpoints, $name-x);
+    @if ($name-x == "") {
+        @media screen and (max-width: $value-y) {
+            @content;
+        }
+    } @else {
+        @media screen and (min-width: $value-x) and (max-width: $value-y) {
+            @content;
+        }
+    }
+}
+
+@mixin media-screen($is-max, $value) {
+    @if ($is-max) {
+        @media screen and (max-width: 576px) {
+            @content;
+        }
+    } @else {
+        @media screen and (min-width: $value) {
+            @content;
+        }
+    }
+}
+
+@mixin make-col($break-point, $max-width) {
+    $isMax: $max-width == 0;
+
+    @include media-screen($isMax, $max-width) {
+        @for $i from 1 through 12 {
+            .col-#{$break-point}-#{$i} {
+                --column-size: #{$i};
+            }
+        }
+    }
+}
+
+@mixin make-container($break-point, $max-width, $container-max-width) {
+    $isMax: $max-width == 0;
+
+    @include media-screen($isMax, $max-width) {
+        .container {
+            width: $container-max-width;
+        }
+    }
+}
+@mixin make-container-sm($break-point, $max-width, $container-max-width) {
+    $isMax: $max-width == 0;
+
+    @include media-screen($isMax, $max-width) {
+        .container-sm {
+            max-width: $container-max-width;
+        }
+    }
+}

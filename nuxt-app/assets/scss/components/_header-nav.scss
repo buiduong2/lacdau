@@ -1,0 +1,99 @@
+.header-nav-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100%);
+    padding-block: 11px;
+    z-index: 99;
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .header-nav {
+        position: relative;
+
+
+        .nav-list {
+            --nav-height: 630px;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+            height: var(--nav-height);
+            background-color: #fff;
+            border-radius: 20px;
+            line-height: 1.5;
+            overflow: hidden;
+
+            .nav-item {
+                .nav-link {
+                    height: calc(var(--nav-height) / 11);
+                    font-size: 1.4rem;
+                    line-height: 1.5;
+                    display: block;
+                    padding-inline: 14px;
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+
+                    &:hover {
+                        background-color: #29a07e;
+                        color: white;
+
+                        .icon-cat {
+                            filter: brightness(100);
+                        }
+                    }
+
+                    .icon-cat {
+                        margin-right: 20px;
+                    }
+                }
+
+                >.sub-nav-list {
+                    display: none;
+                }
+
+                &:hover>.sub-nav-list {
+                    display: block;
+                    background-color: white;
+                    position: absolute;
+                    left: 100%;
+                    top: 0;
+                    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
+                    width: calc(1200px - 100%);
+                    height: 100%;
+                    background-color: #fff;
+                    border-radius: 20px;
+                    padding: 15px;
+                    z-index: 999;
+
+                    >.sub-nav-item {
+                        float: left;
+                        width: 25%;
+
+                        >.sub-nav-link {
+                            font-size: 1.5rem;
+                            color: #29a07e;
+                            font-weight: 700;
+                            margin-bottom: 20px;
+                            display: inline-block;
+                        }
+
+                        >.sub-nav-list {
+                            .sub-nav-item {
+                                a {
+                                    font-weight: 300;
+                                    font-size: 1.3rem;
+                                    margin-bottom: 10px;
+                                    display: block;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

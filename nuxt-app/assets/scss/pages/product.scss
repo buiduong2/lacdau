@@ -1,0 +1,143 @@
+@use "../components/gallery-slide";
+@use "../components/product-show";
+
+.product-show-wrapper {
+    .page-title {
+        color: #333;
+        font-weight: 900;
+        font-size: 2.4rem;
+        line-height: 30px;
+        margin-bottom: 15px;
+
+        .quantity {
+            line-height: 21px;
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+    }
+
+    .category-list {
+        padding-block: 26px;
+        background-color: #e6f7dd;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+
+        @extend %slide;
+
+        .category-list-inner {
+            @extend %slide-inner;
+
+
+            .category-item {
+                width: 20%;
+                flex-shrink: 0;
+
+                >* {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                }
+
+                .category-img-wapper {
+                    display: flex;
+
+                    border-radius: 50%;
+                    overflow: hidden;
+                    width: 100px;
+                    height: 100px;
+                    margin-block: 15px;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .category-title {
+                    font-size: 1.4rem;
+                    line-height: 18px;
+                }
+            }
+        }
+
+
+        .category-slide-action {
+            .slide-action {
+                @extend %slide-action;
+            }
+        }
+    }
+}
+
+.product-filter-list {
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 12px 20px;
+
+    .product-filter-item {
+        font-size: 1.4rem;
+        margin-bottom: 35px;
+
+        .filter-title {
+            font-size: 1.6rem;
+            line-height: 20px;
+            font-weight: 700;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d9d9d9;
+            margin-bottom: 8px;
+        }
+
+        .filter-list {
+            .filter-item {
+                .filter-link {
+                    display: block;
+
+                    line-height: 1.5;
+                    padding-block: 5px;
+                    font-weight: 300;
+
+                    &.checked {
+                        .icon-square {
+                            background-color: var(--primary-color);
+                            position: relative;
+
+                            >svg {
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                width: 80%;
+                                height: 80%;
+                            }
+                        }
+                    }
+
+                    .icon-square {
+                        width: 16px;
+                        height: 16px;
+                        display: inline-block;
+                        margin-right: 14px;
+                        background-color: #f4f4f4;
+
+                    }
+                }
+            }
+        }
+
+        .filter-action {
+            text-align: center;
+
+            .btn {
+                font-size: 1.4rem;
+                line-height: 1.5;
+                margin-top: 10px;
+                width: 100%;
+                padding: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+}

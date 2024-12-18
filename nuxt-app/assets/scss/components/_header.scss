@@ -1,0 +1,238 @@
+.section-header {
+    position: relative;
+
+    a:hover {
+        color: currentColor;
+    }
+
+    .top-group {
+        background-color: #29a07e;
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: 500;
+        line-height: 28px;
+        display: flex;
+        padding-block: 4px;
+        position: relative;
+
+        &-left {
+            display: flex;
+            gap: 7px;
+            position: relative;
+
+            .btn-list {
+                display: flex;
+                gap: 7px;
+
+                .btn {
+                    background: linear-gradient(270deg, #cfeac1 2.54%, #d4ee8c 86.96%);
+                    border-radius: 30px;
+                    padding-inline: 10px;
+                    line-height: 28px;
+                    color: #005f44;
+                    cursor: pointer;
+                }
+            }
+
+            .sales-platform-link-list {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+
+                .platform-link {
+
+                    svg,
+                    i {
+                        margin-right: 5px;
+                    }
+
+                    svg {
+                        height: 100%;
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+
+        &-right {
+            display: flex;
+            gap: 20px;
+
+            .auth-list {
+                font-weight: 700;
+
+                .icon-user {
+                    margin-right: 8px;
+                }
+            }
+        }
+
+        .header-tooltip-wraper:hover {
+            >.header-tooltip {
+                display: block;
+            }
+        }
+
+
+
+        .header-tooltip {
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                border-top: 4px solid transparent;
+                transform: translateY(-100%);
+            }
+
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            background-color: #fff;
+            z-index: 99;
+
+            .tooltip-item {
+                color: black;
+                font-size: 1.5rem;
+                line-height: 28px;
+                box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
+                padding: 15px;
+
+                .tooltip-content {
+                    .tooltip-heading {
+                        background-color: #29a07e;
+                        color: white;
+                        font-size: 1.6rem;
+                        font-weight: 700;
+                        padding: 5px 12px;
+                        border-radius: 5px;
+                    }
+
+                    .tooltip-info-list {
+                        .tooltip-info-item {
+                            padding-block: 7px;
+
+                            a:hover {
+                                color: var(--primary-color, #29A07E);
+                            }
+                        }
+                    }
+
+                    iframe {
+                        width: 100%;
+                    }
+                }
+
+                i {
+                    color: #29a07e;
+                }
+            }
+        }
+    }
+
+    .bottom-group {
+        --input-line-height: 42px;
+        background-color: #fff;
+
+        .bottom-group-inner {
+            display: flex;
+            align-items: center;
+
+            .logo {
+                height: 110px;
+                margin-right: 12px;
+
+                img {
+                    margin-inline: 36px;
+                    height: 100%;
+                }
+            }
+
+            %bottom-group-input {
+                border-radius: 10px;
+                line-height: var(--input-line-height);
+            }
+
+            .nav-btn {
+                @extend %bottom-group-input;
+                background-color: #29a07e;
+                padding-inline: 12px;
+                color: white;
+                font-weight: 600px;
+                text-transform: uppercase;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+
+            .header-form {
+                flex-grow: 1;
+                margin-right: 10px;
+                display: flex;
+                @extend %bottom-group-input;
+                box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+                overflow: hidden;
+                padding-inline: 8px;
+
+                .form-input {
+                    width: 100%;
+                    font-size: 1.4rem;
+                }
+            }
+
+            .bottom-group-action-list {
+                display: flex;
+                gap: 24px;
+
+                .action-item {
+                    line-height: 18px;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #29a07e;
+                    }
+
+                    .icon-phone {
+                        margin-right: 12px;
+                    }
+
+                    .highlight {
+                        color: #29a07e;
+                        font-weight: 700;
+                    }
+                }
+
+                .action-item~.action-item::before {
+                    display: block;
+                    content: "";
+                    position: absolute;
+                    background-color: #29a07e;
+                    height: 100%;
+                    width: 0.25px;
+                    left: -12px;
+                }
+            }
+
+            .header-cart {
+                margin-left: 15px;
+
+                .btn--cart {
+                    @extend %bottom-group-input;
+                    font-weight: 700;
+                    border: 1px solid #29a07e;
+                    padding-inline: 20px;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #29a07e;
+                    }
+                }
+            }
+        }
+    }
+}

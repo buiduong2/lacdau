@@ -1,0 +1,19 @@
+@use "../partials/mixin";
+@use "./gallery-slide";
+
+.product-slide {
+    padding: 12px 8px 12px 8px;
+    @extend %slide;
+
+    .product-list {
+        @extend %slide-inner;
+
+        .product-item {
+            box-shadow: none;
+        }
+    }
+
+    .slide-action {
+        @extend %slide-action;
+    }
+}

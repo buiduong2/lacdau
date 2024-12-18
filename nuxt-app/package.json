@@ -1,0 +1,37 @@
+{
+	"name": "nuxt-app",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"@nuxt/image": "^1.8.1",
+		"@nuxtjs/google-fonts": "^3.2.0",
+		"@pinia/nuxt": "^0.7.0",
+		"lodash": "^4.17.21",
+		"nuxt": "^3.13.2",
+		"nuxt-app": "file:",
+		"vue": "latest",
+		"vue-router": "latest"
+	},
+	"devDependencies": {
+		"@iconify/vue": "^4.1.2",
+		"@nuxt/test-utils": "^3.14.4",
+		"@types/lodash": "^4.17.13",
+		"@vue/test-utils": "^2.4.6",
+		"happy-dom": "^15.11.0",
+		"playwright-core": "^1.48.2",
+		"sass": "^1.80.6",
+		"sass-loader": "^16.0.3",
+		"vitest": "^2.1.4"
+	},
+	"overrides": {
+		"vue": "latest"
+	}
+}
