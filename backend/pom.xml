@@ -17,7 +17,7 @@
     <properties>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <java.version>17</java.version>
-        <org.projectlombok.version>1.18.36</org.projectlombok.version>
+        <org.projectlombok.version>1.18.16</org.projectlombok.version>
     </properties>
     <dependencies>
         <dependency>
@@ -35,16 +35,18 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
-        </dependency>
-                <dependency>
+        </dependency> -->
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.7.4</version>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -123,13 +125,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>9</source> <!-- depending on your project -->
-                    <target>9</target> <!-- depending on your project -->
+                    <source>17</source> <!-- depending on your project -->
+                    <target>17</target> <!-- depending on your project -->
                     <annotationProcessorPaths>
                         <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${org.projectlombok.version}</version>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
                         </path>
                         <path>
                             <groupId>org.mapstruct</groupId>

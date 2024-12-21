@@ -9,7 +9,9 @@ import { columns } from '@/components/page/brands/table/column'
 import { toast } from '@/components/ui/toast'
 import { useVueTable } from '@tanstack/vue-table'
 import { storeToRefs } from 'pinia'
-const router = useRouter()
+definePage({
+  meta: { breadcrumb: ['Thương hiệu', 'Danh sách'] },
+})
 const store = useBrandStore()
 await store.fetchInit()
 const { brands } = storeToRefs(store)

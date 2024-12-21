@@ -7,6 +7,9 @@ import { toast } from '@/components/ui/toast'
 import { useVueTable } from '@tanstack/vue-table'
 import { storeToRefs } from 'pinia'
 
+definePage({
+  meta: { breadcrumb: ['Thuộc tính', 'Danh sách'] },
+})
 const store = useAttributeStore()
 await store.fetchInit()
 const { attributes } = storeToRefs(store)

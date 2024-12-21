@@ -1,8 +1,10 @@
 @use "../components/form";
 
 .section-form {
-    padding: 15px;
+
+
     .section-form-inner {
+        padding: 15px;
         background-color: white;
 
         .section-title {
@@ -16,6 +18,17 @@
         .form {
             margin-inline: auto;
             width: 60%;
+        }
+
+        .form-btn {
+            width: 120px;
+            height: 37px;
+            box-sizing: content-box;
+            padding: 1px 6px;
+        }
+
+        .form-select {
+            width: 100%;
         }
     }
 }

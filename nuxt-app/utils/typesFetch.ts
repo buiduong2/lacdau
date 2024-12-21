@@ -43,7 +43,8 @@ interface Thumbnail {
 }
 
 interface RelateProduct {
-	id: string
+	id: number
+	productId:string
 	name: string
 	price: number
 }

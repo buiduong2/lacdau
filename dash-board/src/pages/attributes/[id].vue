@@ -4,6 +4,9 @@ import { toast } from '@/components/ui/toast'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 
+definePage({
+  meta: { breadcrumb: ['Thuộc tính', 'Chỉnh sửa'] },
+})
 const route = useRoute('/attributes/[id]')
 const id = route.params.id
 const oldAttribute = await fetchAttribute(id)

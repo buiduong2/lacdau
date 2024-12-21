@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute('product-id')
 
-const { data: product,error } = await useAsyncData('products', () =>
+const { data: product, error } = await useAsyncData('products', () =>
 	$fetch(`/api/products/${route.params.id}`)
 )
 
@@ -11,6 +11,13 @@ if (error.value || !product.value) {
 const breadcrumbs: Breadcrumb[] = useCategoryStore().getBreadcrumbById(
 	product.value.categoryId
 )
+
+const { notification } = useNotification()
+
+function addToCart() {
+	
+	notification('Thêm vào giỏ hàng thành công')
+}
 </script>
 
 <template>
@@ -84,7 +91,10 @@ const breadcrumbs: Breadcrumb[] = useCategoryStore().getBreadcrumbById(
 										<button class="action-item primary">
 											Mua ngay
 										</button>
-										<button class="action-item secondary">
+										<button
+											class="action-item secondary"
+											@click="addToCart"
+										>
 											Thêm vào giỏ hàng
 										</button>
 									</div>

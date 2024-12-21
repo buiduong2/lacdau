@@ -1,62 +1,73 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue/dist/iconify.js'
+interface Image {
+	src: string
+	alt: string
+}
+const index = ref<number>(0)
+const images: Image[] = [
+	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' },
+	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' },
+	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' },
+	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' },
+	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' }
+]
+const pickedImage = computed<Image | undefined>(() => images[index.value])
+const wrapperEl = ref()
+
+const { isAtEnd, isAtStart, next, onDrag, onDragEnd, onDragStart, prev } =
+	useGallerySlide(
+		{
+			totalItem: images.length,
+			visibleItemCount: 4,
+			wrapperEl: wrapperEl
+		},
+		{ autoSlide: false }
+	)
 </script>
 <template>
 	<div class="product-detail-img">
 		<div class="detail-main-img">
-			<img src="/assets/imgs/product-detail-1.jpg" alt="" />
+			<img
+				v-if="pickedImage"
+				:src="pickedImage.src"
+				:alt="pickedImage.alt"
+			/>
 		</div>
 
 		<div class="detail-thumbnail-wrapper">
 			<div class="detail-thumbnail-slide">
-				<div class="detail-thumbnail-list row gx-2">
-					<div class="col-3">
-						<div class="detail-thumbnail-item active">
-							<img
-								src="/assets/imgs/product-detail-thumbnail-1.jpg"
-								alt=""
-							/>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="detail-thumbnail-item">
-							<img
-								src="/assets/imgs/product-detail-thumbnail-1.jpg"
-								alt=""
-							/>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="detail-thumbnail-item">
-							<img
-								src="/assets/imgs/product-detail-thumbnail-1.jpg"
-								alt=""
-							/>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="detail-thumbnail-item">
-							<img
-								src="/assets/imgs/product-detail-thumbnail-1.jpg"
-								alt=""
-							/>
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="detail-thumbnail-item">
-							<img
-								src="/assets/imgs/product-detail-thumbnail-1.jpg"
-								alt=""
-							/>
+				<div
+					class="detail-thumbnail-list row gx-2"
+					ref="wrapperEl"
+					@drag="onDrag"
+					@dragstart="onDragStart"
+					@dragend="onDragEnd"
+				>
+					<div class="col-3" v-for="(image, i) in images" :key="i">
+						<div
+							class="detail-thumbnail-item"
+							:class="{ active: index === i }"
+							@click="index = i"
+						>
+							<img :src="image.src" :alt="image.src" />
 						</div>
 					</div>
 				</div>
 
 				<div class="detail-thumbnail-action-list">
-					<button class="thumbnail-action-item" disabled>
+					<button
+						class="thumbnail-action-item"
+						:disabled="isAtStart"
+						@click="prev"
+					>
 						<Icon icon="fa6-solid:chevron-left" />
 					</button>
-					<button class="thumbnail-action-item">
+					<button
+						class="thumbnail-action-item"
+						:disabled="isAtEnd"
+						@click="next"
+					>
 						<Icon icon="fa6-solid:chevron-right" />
 					</button>
 				</div>

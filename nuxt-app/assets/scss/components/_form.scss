@@ -11,6 +11,16 @@
         }
     }
 
+    .form-message {
+
+        line-height: 1.5;
+
+        &.error {
+            color: #E94E1B;
+        }
+    }
+
+
     .form-input {
         width: 100%;
         padding: 12px 6px;
@@ -22,11 +32,13 @@
         padding: 12px 6px;
         border: 1px solid #ced4da;
         border-radius: 4px;
+        width: 100%;
     }
 
     .form-radio-group {
         display: flex;
         gap: 20px;
+
         .form-radio-label {
             display: flex;
             align-items: center;
@@ -49,11 +61,13 @@
             color: white;
             background-color: #29a07e;
             font-size: 1.6rem;
+            cursor: pointer;
 
             &:hover {
                 background-color: #0069d9;
             }
         }
+
 
         .form-link {
             margin-left: 5px;

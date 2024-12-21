@@ -25,12 +25,12 @@ const isShow = ref(false)
 				<NuxtLink
 					class="related-link"
 					:class="{
-						active: relate.id === activeId
+						active: relate.productId === activeId
 					}"
 					:to="{
 						name: 'product-id',
 						params: {
-							id: relate.id
+							id: relate.productId
 						}
 					}"
 				>

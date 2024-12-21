@@ -2,7 +2,9 @@
 import { getSchema } from '@/components/page/brands/form/schema'
 import { toast } from '@/components/ui/toast'
 import type { BrandUpdate } from '@/types/brands/reqTypes'
-
+definePage({
+  meta: { breadcrumb: ['Thương hiệu', 'Chỉnh sửa'] },
+})
 const router = useRouter()
 const route = useRoute('/brands/[id]')
 const brand = await fetchBrand(Number(route.params.id))

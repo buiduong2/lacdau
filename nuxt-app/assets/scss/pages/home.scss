@@ -6,6 +6,8 @@
     padding-block: 11px;
 
     .hero-banner {
+        z-index: 2;
+        position: relative;
         .banner-item {
             position: relative;
             overflow: hidden;
@@ -28,18 +30,12 @@
 
         .banner-slide {
             width: 100%;
-            // display: flex;
-            // overflow: hidden;
             position: relative;
             aspect-ratio: 955 / 579;
 
             .banner-item {
                 position: absolute;
                 inset: 0;
-                // aspect-ratio: 955 / 579;
-
-                // flex-shrink: 0;
-                // width: 100%;
 
                 img {
                     height: 100%;
@@ -49,6 +45,7 @@
             }
 
             .banner-slide-action {
+                z-index: 100;
                 position: absolute;
                 bottom: 20px;
                 left: 50%;

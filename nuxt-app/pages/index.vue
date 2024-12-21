@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { banners } from '@/mockData/home'
-
+useSeoMeta({
+	title: 'LẮC ĐẦU SHOP - MÔ HÌNH, PHỤ KIỆN, ĐỒ TRANG TRÍ MÁY TÍNH - PC',
+	ogTitle: 'LẮC ĐẦU SHOP - MÔ HÌNH, PHỤ KIỆN, ĐỒ TRANG TRÍ MÁY TÍNH - PC',
+	description: 'Trang web bán hàng hàng đầu Việt Name',
+	ogDescription: 'Trang web bán hàng hàng đầu Việt Name',
+	ogImage: '/imgs/banner-mid-1.png',
+	twitterCard: 'summary_large_image',
+})
 defineProps()
 const products = getProducts()
 const slideSubCategories = getCategories()

@@ -5,6 +5,10 @@ import type { CategoryTree } from '@/stores/category'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 
+definePage({
+  meta: { breadcrumb: ['Danh mục', 'Chỉnh sửa'] },
+})
+
 const route = useRoute('/categories/[id]')
 const id = Number(route.params.id)
 

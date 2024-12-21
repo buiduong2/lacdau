@@ -1,3 +1,7 @@
+import type { RouteLocationRaw } from "vue-router"
+import type { RouteRecordName } from "vue-router"
+import type { RouteNamedMap } from "vue-router/auto-routes"
+
 export type ID = number
 
 export interface SimpleCategory {
@@ -62,7 +66,7 @@ export interface NavItem extends CategoryRes {
 export interface Breadcrumb {
 	id: number | string
 	name: string
-	href: string
+	href: RouteLocationRaw | string
 }
 
 export type Predicate<T> = (t: T) => boolean

@@ -1,7 +1,8 @@
+<script setup lang="ts">
+definePage({ meta: { breadcrumb: ['Đơn hàng'] } })
+</script>
 <template>
   <div class="text-2xl">Orders Page</div>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped></style>

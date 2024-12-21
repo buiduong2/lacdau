@@ -2,7 +2,7 @@ import _ from 'lodash'
 import { childCategories, mainSlicateCategory } from '~/mockData/category'
 import { navData, navIcons } from '~/mockData/navbar'
 import { products } from '~/mockData/product'
-import type { Breadcrumb, NavItem, Product, SimpleCategory } from './types'
+import type { NavItem, SimpleCategory } from './types'
 
 function toNavList(
 	categories: SimpleCategory[],
@@ -53,17 +53,14 @@ export function getMainCategory(): NavItem {
 		...mainSlicateCategory,
 		slug: toSlug(mainSlicateCategory.name),
 		href: toCategoryHref(mainSlicateCategory),
-		level: 0,
 		parentId: 0,
 		imageSrc: null
 	}
 }
 
-export function getProducts(): Product[] {
+export function getProducts(): ProductSummaryRes[] {
 	return products.map(p => ({
-		...p,
-		slug: toSlug(p.name),
-		href: toProductHref(p)
+		...p
 	}))
 }
 

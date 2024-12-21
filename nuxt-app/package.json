@@ -18,7 +18,8 @@
 		"nuxt": "^3.13.2",
 		"nuxt-app": "file:",
 		"vue": "latest",
-		"vue-router": "latest"
+		"vue-router": "latest",
+		"zod": "^3.24.1"
 	},
 	"devDependencies": {
 		"@iconify/vue": "^4.1.2",

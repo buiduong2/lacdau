@@ -3,7 +3,9 @@ import { schema } from '@/components/page/relate-groups/form/schema'
 import { toast } from '@/components/ui/toast'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-
+definePage({
+  meta: { breadcrumb: ['Nhóm sản phẩm', 'Chỉnh sửa'] },
+})
 const groupId = Number(useRoute('/relate-groups/[id]').params.id)
 
 const oldGroup = await fetchRelateGroup(groupId)

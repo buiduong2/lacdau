@@ -5,7 +5,7 @@ const breadcrumbs: Breadcrumb[] = [
 	{
 		id: '123',
 		name: 'Thông tin giỏ hàng',
-		href: '/cart'
+		href: 'cart'
 	}
 ]
 </script>

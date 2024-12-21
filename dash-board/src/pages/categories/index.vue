@@ -10,7 +10,9 @@ import { columns } from '@/components/page/categories/table/column'
 import { toast } from '@/components/ui/toast'
 import { useVueTable } from '@tanstack/vue-table'
 import { storeToRefs } from 'pinia'
-
+definePage({
+  meta: { breadcrumb: ['Danh mục', 'Danh sách'] },
+})
 const store = useCategoryStore()
 await store.fetchInit()
 const { categoies } = storeToRefs(store)

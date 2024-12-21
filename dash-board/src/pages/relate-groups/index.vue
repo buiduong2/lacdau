@@ -5,7 +5,9 @@ import { getTableClientDefaultConfig } from '@/components/page/app/table/utils'
 import { columns } from '@/components/page/relate-groups/table/column'
 import { useVueTable } from '@tanstack/vue-table'
 import { storeToRefs } from 'pinia'
-
+definePage({
+  meta: { breadcrumb: ['Nhóm sản phẩm', 'Danh sách'] },
+})
 const store = useRelateStore()
 await store.fetchInit()
 const { relateGroups } = storeToRefs(store)

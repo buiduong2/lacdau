@@ -22,8 +22,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    vueJsx(),
-    vueDevTools(),
     VueRouter(),
     AutoImport({
       include: [
@@ -48,6 +46,9 @@ export default defineConfig({
         },
       ],
     }),
+
+    vueJsx(),
+    vueDevTools(),
   ],
   resolve: {
     alias: {

@@ -3,7 +3,9 @@
 <template>
 	<div>
 		<TheHeader />
-		<slot />
+		<AppNotification>
+			<slot />
+		</AppNotification>
 	</div>
 </template>
 

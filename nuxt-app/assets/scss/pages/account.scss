@@ -1,0 +1,74 @@
+@use "../components/form";
+
+.section-account {
+    padding-block: 20px;
+    background-color: white;
+    font-size: 1.4rem;
+    color: #333;
+
+
+    .side-bar {
+
+        .side-bar-group {
+            line-height: 2.4;
+
+            .side-bar-group__title {
+                font-weight: 700;
+
+
+            }
+
+            .side-bar-item {
+                margin-bottom: 10px;
+
+                .side-bar__btn {
+                    font-size: 1.6rem;
+                    background: #6c757d;
+                    color: #fff;
+                    display: block;
+                    line-height: inherit;
+                    border-radius: 4px;
+                    width: 100%;
+                    cursor: pointer;
+                    text-align: center;
+
+                    &.current {
+                        background: #29A07E;
+                    }
+
+                    &.btn--logout {
+                        display: inline-block;
+                        width: auto;
+                        padding-inline: 12px;
+                        background: #f23c3cde;
+                    }
+                }
+            }
+        }
+    }
+
+    .section-view {
+        .view-title {
+            margin-bottom: 8px;
+            font-size: 2.2rem;
+            line-height: 1.2;
+        }
+
+        .form {
+            .form-input {
+                padding-block: 8px;
+            }
+
+            .form-select {
+                padding-block: 8px;
+            }
+
+            .form-action {
+                .form-btn {
+                    height: 38px;
+                    min-width: 200px;
+                }
+            }
+        }
+    }
+}

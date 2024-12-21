@@ -220,6 +220,7 @@
 
             .header-cart {
                 margin-left: 15px;
+                position: relative;
 
                 .btn--cart {
                     @extend %bottom-group-input;
@@ -227,6 +228,28 @@
                     border: 1px solid #29a07e;
                     padding-inline: 20px;
                     cursor: pointer;
+
+                    .icon.icon-cart {
+                        position: relative;
+                    }
+
+                    .cart-quantity {
+                        position: absolute;
+                        background: #FFBF42;
+                        display: inline;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        top: 0;
+                        right: 0;
+                        translate: -50% 0;
+                        width: 16px;
+                        height: 16px;
+                        font-size: 1.3rem;
+                        vertical-align: middle;
+                        line-height: 1;
+                        border-radius: 50%;
+                    }
 
                     &:hover {
                         color: #29a07e;

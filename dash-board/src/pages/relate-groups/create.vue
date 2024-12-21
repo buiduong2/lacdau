@@ -3,7 +3,9 @@ import { schema } from '@/components/page/relate-groups/form/schema'
 import { toast } from '@/components/ui/toast'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-
+definePage({
+  meta: { breadcrumb: ['Nhóm sản phẩm', 'Tạo mới'] },
+})
 const form = useForm({
   validationSchema: toTypedSchema(schema),
 })

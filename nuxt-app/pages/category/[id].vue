@@ -12,7 +12,7 @@ const { data ,error} = await useFetch('/api/products', {
 	query: query
 })
 
-if (!data || !data.value) {
+if (error.value || !data.value) {
 	throw createError({ status: 404, message: 'Not Found' })
 }
 

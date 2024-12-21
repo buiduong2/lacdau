@@ -5,6 +5,10 @@ import { toast } from '@/components/ui/toast'
 import { zodSchema } from '@/components/page/product/form/schema'
 import type { ProductFull } from '@/types/products/resTypes'
 
+definePage({
+  meta: { breadcrumb: ['Danh mục', 'Chỉnh sửa'] },
+})
+
 const router = useRouter()
 const route = useRoute('/products/[id]')
 const cloneId = route.params.id

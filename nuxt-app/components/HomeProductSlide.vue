@@ -3,21 +3,30 @@ import { Icon } from '@iconify/vue/dist/iconify.js'
 const props = defineProps<{
 	subCategories: Category[]
 	mainCategory: Category
-	products: Product[]
+	products: ProductSummaryRes[]
 	interval?: number
 	initialDelay?: number
 }>()
 
 const wrapperEl = ref<HTMLElement | null>(null)
-const { next, prev, isAtEnd, isAtStart, stopCountDown, resetCountDown } =
-	useGallerySlide(
-		{
-			totalItem: props.products.length,
-			visibleItemCount: 5,
-			wrapperEl: wrapperEl
-		},
-		{ initialDelay: props.initialDelay, slideInterval: props.interval }
-	)
+const {
+	next,
+	prev,
+	isAtEnd,
+	isAtStart,
+	stopCountDown,
+	resetCountDown,
+	onDrag,
+	onDragEnd,
+	onDragStart
+} = useGallerySlide(
+	{
+		totalItem: props.products.length,
+		visibleItemCount: 5,
+		wrapperEl: wrapperEl
+	},
+	{ initialDelay: props.initialDelay, slideInterval: props.interval }
+)
 </script>
 <template>
 	<section class="section-product section">
@@ -50,6 +59,9 @@ const { next, prev, isAtEnd, isAtStart, stopCountDown, resetCountDown } =
 							ref="wrapperEl"
 							@mouseenter="stopCountDown"
 							@mouseleave="resetCountDown"
+							@drag="onDrag"
+							@dragend="onDragEnd"
+							@dragstart="onDragStart"
 						>
 							<div
 								class="col-1/5"

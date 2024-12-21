@@ -2,20 +2,27 @@
 import { Icon } from '@iconify/vue/dist/iconify.js'
 const props = defineProps<{ categories: Category[] }>()
 const wrapperEl = ref<HTMLElement | null>(null)
-const { next, prev, isAtEnd, isAtStart } = useGallerySlide(
-	{
-		totalItem: props.categories.length,
-		visibleItemCount: 5,
-		wrapperEl: wrapperEl
-	},
-	{
-		autoSlide: false
-	}
-)
+const { next, prev, isAtEnd, isAtStart, onDrag, onDragStart, onDragEnd } =
+	useGallerySlide(
+		{
+			totalItem: props.categories.length,
+			visibleItemCount: 5,
+			wrapperEl: wrapperEl
+		},
+		{
+			autoSlide: false
+		}
+	)
 </script>
 <template>
 	<div class="category-list">
-		<div class="category-list-inner" ref="wrapperEl">
+		<div
+			class="category-list-inner"
+			@drag="onDrag"
+			@dragstart="onDragStart"
+			@dragend="onDragEnd"
+			ref="wrapperEl"
+		>
 			<article
 				class="category-item"
 				v-for="subCat in categories"

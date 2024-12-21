@@ -5,7 +5,9 @@ import type { SortMapper } from '@/composables/useSortQuery'
 import type { Page } from '@/types'
 import type { Product } from '@/types/products/resTypes'
 import { RouterLink } from 'vue-router'
-
+definePage({
+  meta: { breadcrumb: ['Sản phẩm', 'Danh sách'] },
+})
 const sortMapper: SortMapper<Product> = {
   mainImage: 'mainImage.src',
 }

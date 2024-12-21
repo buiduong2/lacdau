@@ -4,6 +4,10 @@ import { toast } from '@/components/ui/toast'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 
+definePage({
+  meta: { breadcrumb: ['Thuộc tính con', 'Tạo mới'] },
+})
+
 const form = useForm({
   validationSchema: toTypedSchema(schema),
 })

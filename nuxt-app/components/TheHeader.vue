@@ -1,44 +1,12 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
-const salesPlatformLinks = [
-	{
-		href: '#Shopee',
-		title: 'Shopee',
-		icon: 'icon icon-shopee',
-		isCustomIcon: true
-	},
-	{
-		href: '#Lazada',
-		title: 'Lazada',
-		icon: 'icon icon-lazada',
-		isCustomIcon: true
-	},
-	{
-		href: '#Instagram',
-		title: 'Instagram',
-		icon: 'fa-instagram',
-		isCustomIcon: false
-	},
-	{
-		href: '#Tiktok',
-		title: 'Tiktok',
-		icon: 'fa6-brands:tiktok',
-		isCustomIcon: false
-	},
-	{
-		href: '#Youtube',
-		title: 'Youtube',
-		icon: 'fa-youtube',
-		isCustomIcon: false
-	},
-	{
-		href: '#Facebook',
-		title: 'Facebook',
-		icon: 'fa6-brands:square-facebook',
-		isCustomIcon: false
-	}
-]
+import { salesPlatformLinks } from '~/mockData/header';
+
 const isActivemMenu = ref(false)
+const isAuthenticated = true
+const username = 'Bui Duc Duong'
+
+const showCart = ref<boolean>(false)
 </script>
 
 <template>
@@ -88,11 +56,23 @@ const isActivemMenu = ref(false)
 							<a href="#" class="news-link">
 								<i class="icon icon-news"></i> Tin tức</a
 							>
+							<div class="auth-list" v-if="!isAuthenticated">
+								<i class="icon icon-user"> </i>
+								<NuxtLink to="/register" class="auth-action"
+									>Đăng ký</NuxtLink
+								>
+								<span>/</span>
+								<NuxtLink to="/login" class="auth-action"
+									>Đăng nhập</NuxtLink
+								>
+							</div>
 							<div class="auth-list">
 								<i class="icon icon-user"> </i>
-								<a href="#" class="auth-action">Đăng ký</a>
-								<span>/</span>
-								<a href="#" class="auth-action">Đăng nhập</a>
+								<NuxtLink to="/account" class="auth-action">
+									<span style="font-weight: 400">
+										Xin chào</span
+									>, {{ username }}
+								</NuxtLink>
 							</div>
 						</div>
 					</div>
@@ -157,15 +137,23 @@ const isActivemMenu = ref(false)
 						</div>
 					</div>
 
-					<div class="header-cart">
+					<div
+						class="header-cart"
+						@mouseenter="showCart = true"
+						@mouseleave="showCart = false"
+					>
 						<NuxtLink to="/cart">
 							<button class="btn btn--cart">
 								<i class="icon icon-cart">
-									<span class="cart-quantity"></span>
+									<span class="cart-quantity">99</span>
 								</i>
 								Giỏ hàng
 							</button>
 						</NuxtLink>
+
+						<Transition name="cart">
+							<TheCart v-if="showCart" />
+						</Transition>
 					</div>
 				</div>
 			</div>
@@ -175,4 +163,18 @@ const isActivemMenu = ref(false)
 
 <style lang="scss">
 @use '~/assets/scss/components/_header.scss';
+
+.cart-enter-active {
+	opacity: 1;
+	transition: ease-in-out 200ms all;
+}
+.cart-leave-active {
+	transition: ease-in-out 200ms all;
+}
+
+.cart-leave-to,
+.cart-enter-from {
+	translate: 0 30px;
+	opacity: 0;
+}
 </style>

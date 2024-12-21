@@ -3,7 +3,9 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { toast } from '@/components/ui/toast'
 import { zodSchema } from '@/components/page/product/form/schema'
-
+definePage({
+  meta: { breadcrumb: ['Sản phẩm', 'Tạo mới'] },
+})
 const router = useRouter()
 const route = useRoute()
 const cloneId = route.query.id
