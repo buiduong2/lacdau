@@ -7,6 +7,7 @@
     v-slot="componentField"
   >
     <Input :type="type" :placeholder="placeholder" v-bind="componentField" />
+    <slot></slot>
   </AppFormField>
 </template>
 

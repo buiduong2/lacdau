@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::layout(
+    subTitle=~{::title/text()},
+    layoutTitle=~{::#layout-title/text()},
+    layoutDesc=~{::#layout-desc/text()},
+    mainContent=~{::#main-content},
+    otherStaticResources=null
+)}">
+
+<head>
+    <title>Trang Chủ</title>
+</head>
+
+<body>
+
+    <h1 id="layout-title">Trang chủ</h1>
+    <p id="layout-desc">Chào mừng bạn đến với chúng tôi</p>
+
+
+    <div class="max-w-md" id="main-content">
+        <th:block th:replace="~{fragment::loginMessage}"></th:block>
+        <th:block sec:authorize="isAuthenticated">
+            <h1 class="mt-5">Xin chào:<b th:text="${#authentication.name}"></b> </h1>
+            <form class="mt-8  grid grid-cols-1 gap-6" method="POST" th:action="@{/logout}">
+                <button class="bg-green-400 p-3 text-white hover:bg-green-300 text-lg">
+                    Thoát
+                </button>
+            </form>
+        </th:block>
+
+    </div>
+
+
+</body>
+
+</html>

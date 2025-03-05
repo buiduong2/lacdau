@@ -1,14 +1,11 @@
 <!-- Chứa Datable Component của chúng ta -->
 <script setup lang="ts">
-defineProps<{
-  row: any
-}>()
-
-defineEmits<{
-  (e: 'clone', id: any): void
-  (e: 'edit', id: any): void
-  (e: 'remove', id: any): void
-}>()
+import type { TableClientDropdown } from './types'
+defineProps<
+  {
+    row: any
+  } & TableClientDropdown
+>()
 </script>
 
 <template>
@@ -20,16 +17,18 @@ defineEmits<{
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
-      <DropdownMenuItem class="cursor-pointer" @click="$emit('edit', row.id)">
-        <Icon icon="lucide:edit" /> Chỉnh sửa
-      </DropdownMenuItem>
-      <DropdownMenuItem class="cursor-pointer" @click="$emit('clone', row.id)">
-        <Icon icon="lucide:copy" />Tạo bản sao
-      </DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem class="cursor-pointer text-red-500" @click="$emit('remove', row.id)">
-        <Icon icon="lucide:trash" />Xóa</DropdownMenuItem
-      >
+      <template v-for="(group, i1) in action.dropdowns" :key="i1">
+        <DropdownMenuSeparator v-if="i1 != 0" />
+        <template v-for="(item, i2) in group" :key="i2">
+          <DropdownMenuItem
+            class="cursor-pointer"
+            :class="{ 'text-red-500': item.color === 'red' }"
+            @click="item.click(row.id)"
+          >
+            <Icon :icon="item.icon" /> {{ item.text }}
+          </DropdownMenuItem>
+        </template>
+      </template>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

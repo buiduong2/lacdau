@@ -5,7 +5,7 @@ import type { CategoryTree } from '@/stores/category'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 definePage({
-  meta: { breadcrumb: ['Danh mục', 'Tạo mới'] },
+  meta: { breadcrumb: 'Tạo mới' },
 })
 const form = useForm({
   validationSchema: toTypedSchema(schema),

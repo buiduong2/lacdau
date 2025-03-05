@@ -49,6 +49,11 @@ public class AdminProductController {
         return productService.findAdminDtoBy(filterParam, pageable);
     }
 
+    @GetMapping("/list")
+    public List<ProductAdminDTO> findByIdIn(@RequestParam List<String> ids) {
+        return productService.findAdminDTOByProductCodeIn(ids);
+    }
+
     @ImageSizeParams(indexImages = 2, indexMetadatas = 3, pathToMetadata = "createThumbnails", imageParamName = "thumbnails", metadataParamName = "createThumbnails")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ProductAdminDTO create(

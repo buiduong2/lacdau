@@ -1,0 +1,226 @@
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(
+                                                        title,
+                                                        preview, 
+                                                        topContents, 
+                                                        actionUrl,   
+                                                        actionText,
+                                                        bottomContents
+                                                    )">
+
+<head>
+    <style rel="stylesheet" type="text/css">
+        @media only screen and (max-width: 620px) {
+            table[class=body] h1 {
+                font-size: 28px !important;
+                margin-bottom: 10px !important;
+            }
+
+            table[class=body] p,
+            table[class=body] ul,
+            table[class=body] ol,
+            table[class=body] td,
+            table[class=body] span,
+            table[class=body] a {
+                font-size: 16px !important;
+            }
+
+            table[class=body] .wrapper,
+            table[class=body] .article {
+                padding: 10px !important;
+            }
+
+            table[class=body] .content {
+                padding: 0 !important;
+            }
+
+            table[class=body] .container {
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            table[class=body] .main {
+                border-left-width: 0 !important;
+                border-radius: 0 !important;
+                border-right-width: 0 !important;
+            }
+
+            table[class=body] .btn table {
+                width: 100% !important;
+            }
+
+            table[class=body] .btn a {
+                width: 100% !important;
+            }
+
+            table[class=body] .img-responsive {
+                height: auto !important;
+                max-width: 100% !important;
+                width: auto !important;
+            }
+        }
+
+        @media all {
+            .ExternalClass {
+                width: 100%;
+            }
+
+            .ExternalClass,
+            .ExternalClass p,
+            .ExternalClass span,
+            .ExternalClass font,
+            .ExternalClass td,
+            .ExternalClass div {
+                line-height: 100%;
+            }
+
+            .apple-link a {
+                color: inherit !important;
+                font-family: inherit !important;
+                font-size: inherit !important;
+                font-weight: inherit !important;
+                line-height: inherit !important;
+                text-decoration: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-orange-200 text-sm m-0 p-0 leading-[1.4] font-sans"
+    style='margin: 0px; line-height: 1.25rem; --tw-bg-opacity: 1; background-color: rgb(254 215 170 / var(--tw-bg-opacity, 1)); padding: 0px; font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; font-size: 0.875rem;'>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="${title}">Lắc đầu Reset Password</title>
+
+    <table class="min-w-full border-collapse bg-orange-200 w-full" role="presentation" border="0" cellpadding="0"
+        cellspacing="0"
+        style="text-indent: 0px; border-color: inherit; border-collapse: collapse; width: 100%; min-width: 100%; --tw-bg-opacity: 1; background-color: rgb(254 215 170 / var(--tw-bg-opacity, 1));">
+        <tbody>
+            <tr>
+                <td class="text-sm align-top" style="vertical-align: top; font-size: 0.875rem; line-height: 1.25rem;">
+                    &nbsp;
+                </td>
+                <td class="block p-2 mx-auto w-[580px] max-w-xl text-sm align-top"
+                    style="margin-left: auto; margin-right: auto; display: block; max-width: 36rem; padding: 0.5rem; vertical-align: top; font-size: 0.875rem; line-height: 1.25rem;">
+                    <div class="py-[20px]">
+                        <table class="min-w-full w-full border-collapse" role="presentation" border="0" cellpadding="0"
+                            cellspacing="0"
+                            style="text-indent: 0px; border-color: inherit; border-collapse: collapse; width: 100%; min-width: 100%;">
+                            <tbody>
+                                <tr>
+                                    <td class="text-center text-sm align-top"
+                                        style="text-align: center; vertical-align: top; font-size: 0.875rem; line-height: 1.25rem;">
+                                        <h1 class="text-4xl font-bold" th:text="${title}"
+                                            style="font-size: 2.25rem; font-weight: 700; margin: 0px; line-height: 2.5rem;">
+                                            Khôi phục mật khẩu
+                                        </h1>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-border block p-2 mx-auto max-w-xl"
+                        style="margin-left: auto; margin-right: auto; box-sizing: border-box; display: block; max-width: 36rem; padding: 0.5rem;">
+                        <!-- START CENTERED WHITE CONTAINER -->
+                        <span class="text-transparent hidden h-0 opacity-0 overflow-hidden invisible w-0"
+                            th:text="${preview}"
+                            style="visibility: hidden; display: none; height: 0px; width: 0px; overflow: hidden; color: transparent; opacity: 0;">
+                            Chúng tôi nhận thấy có yêu cầu đặt lại mật khẩu từ tài khoản của bạn. .
+                        </span>
+                        <table class="min-w-full w-full border-collapse bg-white rounded-sm" role="presentation"
+                            style="text-indent: 0px; border-color: inherit; border-collapse: collapse; width: 100%; min-width: 100%; border-radius: 0.125rem; --tw-bg-opacity: 1; background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));">
+                            <!-- START MAIN CONTENT AREA -->
+                            <tbody>
+                                <tr>
+                                    <td class="box-border p-5 text-sm align-top"
+                                        style="box-sizing: border-box; padding: 1.25rem; vertical-align: top; font-size: 0.875rem; line-height: 1.25rem;">
+                                        <table class="min-w-full w-full border-collapse" role="presentation" border="0"
+                                            cellpadding="0" cellspacing="0"
+                                            style="text-indent: 0px; border-color: inherit; border-collapse: collapse; width: 100%; min-width: 100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-sm align-top"
+                                                        style="vertical-align: top; font-size: 0.875rem; line-height: 1.25rem;">
+                                                        <div th:replace="${topContents}"></div>
+
+                                                        <table
+                                                            class="min-w-full w-full border-collapse box-border min-w-auto btn-primary"
+                                                            role="presentation" border="0" cellpadding="0"
+                                                            cellspacing="0"
+                                                            style="text-indent: 0px; border-color: inherit; border-collapse: collapse; box-sizing: border-box; width: 100%; min-width: 100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="left" class="text-sm align-top pb-4"
+                                                                        style="padding-bottom: 1rem; vertical-align: top; font-size: 0.875rem; line-height: 1.25rem;">
+                                                                        <table class="min-w-full w-full border-collapse"
+                                                                            role="presentation" border="0"
+                                                                            cellpadding="0" cellspacing="0"
+                                                                            style="text-indent: 0px; border-color: inherit; border-collapse: collapse; width: 100%; min-width: 100%;">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td class="text-sm align-top bg-white rounded text-center"
+                                                                                        style="border-radius: 0.25rem; --tw-bg-opacity: 1; background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)); text-align: center; vertical-align: top; font-size: 0.875rem; line-height: 1.25rem;">
+                                                                                        <a class="border border-indigo-600 bg-indigo-600 text-white py-3 px-5 rounded box-border cursor-pointer inline-block text-sm font-bold m-0 no-underline capitalize"
+                                                                                            th:href="@{${actionUrl}}"
+                                                                                            th:text="${actionText}"
+                                                                                            target="_blank"
+                                                                                            style="color: rgb(255 255 255 / var(--tw-text-opacity, 1)); text-decoration-thickness: inherit; text-decoration-style: inherit; text-decoration-color: inherit; margin: 0px; box-sizing: border-box; display: inline-block; cursor: pointer; border-radius: 0.25rem; border-width: 1px; --tw-border-opacity: 1; border-color: rgb(79 70 229 / var(--tw-border-opacity, 1)); --tw-bg-opacity: 1; background-color: rgb(79 70 229 / var(--tw-bg-opacity, 1)); padding: 0.75rem 1.25rem; font-size: 0.875rem; line-height: 1.25rem; font-weight: 700; text-transform: capitalize; --tw-text-opacity: 1; text-decoration-line: none;">
+                                                                                            Bấm vào đây để đặt lại
+                                                                                            mật khẩu
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                        <div th:replace="${bottomContents}"></div>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <!-- END MAIN CONTENT AREA -->
+                            </tbody>
+                        </table>
+
+                        <!-- START FOOTER -->
+                        <div class="clear-both text-center w-full mt-[10px]"
+                            style="clear: both; width: 100%; text-align: center;">
+                            <table class="min-w-full w-full border-collapse" role="presentation" border="0"
+                                cellpadding="0" cellspacing="0"
+                                style="text-indent: 0px; border-color: inherit; border-collapse: collapse; width: 100%; min-width: 100%;">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-gray-500 text-xs text-center pb-2 pt-2 align-top"
+                                            style="padding-bottom: 0.5rem; padding-top: 0.5rem; text-align: center; vertical-align: top; font-size: 0.75rem; line-height: 1rem; --tw-text-opacity: 1; color: rgb(107 114 128 / var(--tw-text-opacity, 1));">
+                                            <span class="apple-link text-gray-500 text-xs text-center"
+                                                style="text-align: center; font-size: 0.75rem; line-height: 1rem; --tw-text-opacity: 1; color: rgb(107 114 128 / var(--tw-text-opacity, 1));">
+                                                Lắc đầu shoppee bán hàng online
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END FOOTER -->
+
+                        <!-- END CENTERED WHITE CONTAINER -->
+                    </div>
+                </td>
+                <td class="text-sm align-top" style="vertical-align: top; font-size: 0.875rem; line-height: 1.25rem;">
+                    &nbsp;
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ddict-div style="visibility: visible !important;"></ddict-div>
+</body>
+
+</html>

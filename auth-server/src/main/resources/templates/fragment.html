@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <th:block th:fragment="input(label,name,type,placeholder,error,defaultValue)">
+        <label class="block" th:with="hasError=(${error.size()} != 0 )">
+            <span th:class="${hasError} ? 'text-red-400' : 'text-gray-700'" th:text="${label} + ':'"></span>
+            <input th:type="${type}"
+                class="mt-1 block w-full rounded-md  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                th:name="${name}" th:classappend="${hasError} ? 'border-red-300' : 'border-gray-300'"
+                th:value="${defaultValue}" th:placeholder="${placeholder}" />
+            <ul th:if="${hasError}">
+                <li th:each="er : ${error}" class="text-red-300" th:text="${er}">
+                </li>
+            </ul>
+        </label>
+    </th:block>
+
+    <th:block th:fragment="loginMessage">
+        <div th:if="${param.error}" class="p-5 bg-red-300 text-white">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}" class="p-5 bg-green-300 text-white">
+            Đăng xuất tài khoản thành công
+        </div>
+        <div th:if="${param.account_created}" class="p-5 bg-green-300 text-white">
+            Bạn đã đăng kí tài khoản thành công. Chúng tôi đã gửi email chào mừng đến bạn
+        </div>
+        <div th:if="${param['reset-password']}" class="p-5 bg-green-300 text-white">
+            Thay đổi mật khẩu thành công
+        </div> 
+        <div th:if="${param['change-password']}" class="p-5 bg-green-300 text-white">
+            Thay đổi mật khẩu thành công
+        </div> 
+    </th:block>
+</body>
+
+</html>

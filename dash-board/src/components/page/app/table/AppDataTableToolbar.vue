@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { TableClientProps } from './types'
+import type { TableClientToolbar } from './types'
 
-const props = defineProps<TableClientProps>()
+const props = defineProps<TableClientToolbar>()
 const isFiltered = computed(() => props.table.getState().columnFilters.length > 0)
 
 const keywords = ref<string[]>([])
@@ -21,7 +21,12 @@ function resetFilter() {
     <Button
       v-if="table.getIsSomeRowsSelected() || table.getIsAllRowsSelected()"
       variant="destructive"
-      @click="$emit('removeSelectedRow')"
+      @click="
+        action.removeByIdIn(
+          table.getSelectedRowModel().rows.map((row) => row.getValue('id') as string),
+          () => table.toggleAllRowsSelected(false),
+        )
+      "
       >Xóa</Button
     >
     <div class="flex flex-1 items-center space-x-2">

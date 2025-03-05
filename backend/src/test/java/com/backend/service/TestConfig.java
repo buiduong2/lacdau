@@ -1,7 +1,6 @@
 package com.backend.service;
 
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,11 @@ import com.backend.mapper.AttributeMapperImpl_;
 import com.backend.mapper.AttributeValueMapperImpl;
 import com.backend.mapper.BrandMapperImpl;
 import com.backend.mapper.CategoryMapper;
+import com.backend.mapper.OrderAddressMapper;
+import com.backend.mapper.OrderItemMapper;
+import com.backend.mapper.OrderLogMapper;
+import com.backend.mapper.OrderMapper;
+import com.backend.mapper.PaymentMapper;
 import com.backend.mapper.ProductMapperImpl;
 import com.backend.mapper.RelateGroupMapper;
 import com.backend.mapper.RelateGroupMapperImpl;
@@ -21,36 +25,52 @@ import com.backend.repository.AttributeRepository;
 import com.backend.repository.AttributeValueRepository;
 import com.backend.repository.BrandRepository;
 import com.backend.repository.CategoryRepository;
+import com.backend.repository.CustomerRepository;
+import com.backend.repository.OrderLogRepository;
+import com.backend.repository.OrderRepository;
 import com.backend.repository.ProductCodeGeneratorRepository;
 import com.backend.repository.ProductRepository;
 import com.backend.repository.RelateGroupRepository;
 import com.backend.repository.RelateInfoRepository;
+import com.backend.utils.OrderSpecs;
 import com.backend.utils.ProductSpecs;
 
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 
 @Configuration
+@RequiredArgsConstructor
 public class TestConfig {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private AttributeRepository attributeRepository;
-    @Autowired
-    private AttributeValueRepository attributeValueRepository;
-    @Autowired
-    private BrandRepository brandRepository;
-    @Autowired
-    private RelateGroupRepository relateGroupRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private RelateInfoRepository relateInfoRepository;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private ProductCodeGeneratorRepository productCodeGeneratorRepository;
+    private final AttributeRepository attributeRepository;
+
+    private final AttributeValueRepository attributeValueRepository;
+
+    private final BrandRepository brandRepository;
+
+    private final RelateGroupRepository relateGroupRepository;
+
+    private final RelateInfoRepository relateInfoRepository;
+
+    private final ProductCodeGeneratorRepository productCodeGeneratorRepository;
+
+    private final CustomerRepository customerRepository;
+
+    private final OrderMapper orderMapper = Mappers.getMapper(OrderMapper.class);
+
+    private final OrderAddressMapper orderAddressMapper = Mappers.getMapper(OrderAddressMapper.class);
+
+    private final PaymentMapper paymentMapper = Mappers.getMapper(PaymentMapper.class);
+
+    private final OrderRepository orderRepository;
+
+    private final OrderLogRepository orderLogRepository;
 
     @Bean
     ProductService productService() {
@@ -131,5 +151,38 @@ public class TestConfig {
     @Bean
     CategoryService categoryService() {
         return new CategoryService(categoryRepository, categoryMapper());
+    }
+
+    @Bean
+    @SneakyThrows
+    OrderItemMapper orderItemMapper() {
+        return Mappers.getMapper(OrderItemMapper.class);
+    }
+
+    @Bean
+    OrderService orderService() {
+        return new OrderService(orderRepository,
+                customerRepository,
+                orderMapper,
+                orderItemMapper(),
+                orderAddressMapper,
+                paymentMapper,
+                orderLogService(),
+                orderSpecs());
+    }
+
+    @Bean
+    OrderSpecs orderSpecs() {
+        return new OrderSpecs();
+    }
+
+    @Bean
+    OrderLogMapper orderLogMapper() {
+        return Mappers.getMapper(OrderLogMapper.class);
+    }
+
+    @Bean
+    OrderLogService orderLogService() {
+        return new OrderLogService(orderLogRepository, orderLogMapper());
     }
 }

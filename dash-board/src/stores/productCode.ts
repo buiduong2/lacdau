@@ -7,8 +7,7 @@ export const useProductCodeStore = defineStore('product-code-store', () => {
 
   async function fetchInit() {
     if (!isInited) {
-      const data = await fetchProductCode()
-      codes.value = data
+      codes.value = await fetchProductCode()
     }
     return
   }

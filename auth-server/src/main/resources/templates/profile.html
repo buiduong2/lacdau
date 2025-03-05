@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::layout(
+    subTitle=~{::title/text()},
+    layoutTitle=~{::#layout-title/text()},
+    layoutDesc=~{::#layout-desc/text()},
+    mainContent=~{::#main-content},
+    otherStaticResources=null
+)}">
+
+<head>
+    <title>Trang cá nhân</title>
+</head>
+
+<body>
+
+    <h1 id="layout-title">Trang cá nhân</h1>
+    <p id="layout-desc">Thông tin chi tiét về tài khoản của bạn</p>
+
+
+    <div class="max-w-md" id="main-content">
+        <th:block sec:authorize="isAuthenticated">
+            <table class="table-auto border-collapse shadow-sm" th:object="${user}">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <th class="p-2 text-left border border-slate-600 bg-slate-50">Avatar: </th>
+                        <td class="p-2 border border-slate-700">
+                            <img th:unless="*{avatarUrl}"
+                                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg">
+                            <img th:if="*{avatarUrl}" th:src="*{avatarUrl}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-left border border-slate-600 bg-slate-50">Tên hiển thị: </th>
+                        <td class="p-2 border border-slate-700" th:text="*{displayName}">Bùi Đức Dương</td>
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-left border border-slate-600 bg-slate-50">Tên tài khoản</th>
+                        <td class="p-2 border border-slate-700" th:text="*{username}">buiduong1@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-left border border-slate-600 bg-slate-50">Email</th>
+                        <td class="p-2 border border-slate-700" th:if="*{email}" th:text="*{email}">buiduong1@gmail.com
+                        </td>
+                        <td class="p-2 border border-slate-700 text-red-500" th:unless="*{email}">Chưa có</td>
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-left border border-slate-600 bg-slate-50">Đã xác thực Email: </th>
+                        <td class="p-2 border border-slate-700">
+                            <b th:if="*{emailVerified}" class="text-green-400">
+                                Đã xác thực
+                            </b>
+                            <b th:unless="*{emailVerified}" class="text-red-500">
+                                Chưa xác thực
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-left border border-slate-600 bg-slate-50">Loại tài khoản: </th>
+                        <td class="p-2 border border-slate-700">
+                            <span th:if="*{userType == 'SYS'}">Tài khoản lắc đầu</span>
+                            <span th:unless="*{userType == 'SYS'}"> <span th:text="*{provider}">Provider</span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-left border border-slate-600 bg-slate-50">Ngày tạo: </th>
+                        <td class="p-2 border border-slate-700" th:text="*{#temporals.format(createdAt)}">
+                            20-12-2022
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </th:block>
+
+    </div>
+
+
+</body>
+
+</html>

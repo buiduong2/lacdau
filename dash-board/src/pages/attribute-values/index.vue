@@ -4,14 +4,17 @@ import type {
   TableFacetedFilterInput,
   TableFacetedFilterPick,
 } from '@/components/page/app/table/types'
-import { getTableClientDefaultConfig } from '@/components/page/app/table/utils'
+import {
+  defaulthandleRemoveByIdIn,
+  getTableClientDefaultConfig,
+} from '@/components/page/app/table/utils'
 import { columns } from '@/components/page/attribute-values/table/column'
 import { toast } from '@/components/ui/toast'
 import { useVueTable } from '@tanstack/vue-table'
 import { storeToRefs } from 'pinia'
 
 definePage({
-  meta: { breadcrumb: ['Thuộc tính con', 'Danh sách'] },
+  meta: { breadcrumb: 'Danh sách' },
 })
 
 const store = useAttributeStore()
@@ -43,20 +46,28 @@ const filterInputs: TableFacetedFilterInput[] = [
   },
 ]
 
-async function removeById(id: number) {
+async function removeById(id: number | string) {
+  id = Number(id)
   await fetchAttributeValueDelete(id)
   toast({ description: 'Xoá thành công' })
   store.removeAttributeValue(id)
 }
+
+const action = useTableAction({
+  onCreate: '/attribute-values/create',
+  onEdit: '/attribute-values/[id]',
+  removeByIdIn(id, done) {
+    defaulthandleRemoveByIdIn(id, done, toast)
+  },
+  onDelete: removeById,
+})
 </script>
 <template>
   <AppDataTableClientPage
     :table="table"
+    :action="action"
     :filter-inputs="filterInputs"
     :filter-picks="filterPicks"
-    create-route-name="/attribute-values/create"
-    update-route-name="/attribute-values/[id]"
-    @remove-by-id="removeById"
     heading="Thuộc tính con"
     description="Danh sách thông tin tổng quan về các loại Thuộc tính con"
   />

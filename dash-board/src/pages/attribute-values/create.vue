@@ -5,7 +5,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 
 definePage({
-  meta: { breadcrumb: ['Thuộc tính con', 'Tạo mới'] },
+  meta: { breadcrumb: 'Tạo mới' },
 })
 
 const form = useForm({

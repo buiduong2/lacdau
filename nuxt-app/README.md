@@ -1,75 +1,25 @@
-# Nuxt Minimal Starter
+## Deploy
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+- Chúng ta cần thiết lập lại env ở phần NUxtConfig . VÌ ko hiểu tại sao nó lại không nhận env production
 
-## Setup
+- Hiện tại chưa biết Build thế nào. Nên ta chạy trực tiếp như Dev Server bằng Production preview mà thôi
 
-Make sure to install dependencies:
+- Hiện tại khi mà ta cố gắng sử dụng npm run build thì no sẽ cố gắng load các static env trước khi ta sử dụng npm run preview. Nên ta cần phải thiết lập lại env
 
-```bash
-# npm
-npm install
+- B1. Thiết lập lại env trong file nuxt.config.ts
 
-# pnpm
-pnpm install
 
-# yarn
-yarn install
-
-# bun
-bun install
+```js
+		public: {
+			authUrl: 'https://lacdau-auth.onrender.com',
+			client_id: 'client-client-id',
+			scope: 'openid',
+			redirect_uri: 'https://lacdau-client.onrender.com/auth/callback',
+			code_challenge_method: 'S256',
+			authorizeUrl: 'https://lacdau-auth.onrender.com/oauth2/authorize'
+		}
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+```sh
+docker build -t duongbd1997/lacdau-client:latest .
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

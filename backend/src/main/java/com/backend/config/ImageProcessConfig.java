@@ -11,7 +11,7 @@ import com.cloudinary.Cloudinary;
 public class ImageProcessConfig {
 
     @Bean
-    Cloudinary cloudinary(@Value("${CLOUDINARY_URL}") String url) {
+    Cloudinary cloudinary(@Value("${custom.cloudinary.url}") String url) {
         return new Cloudinary(url);
     }
 

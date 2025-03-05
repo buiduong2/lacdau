@@ -6,7 +6,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 
 definePage({
-  meta: { breadcrumb: ['Danh mục', 'Chỉnh sửa'] },
+  meta: { breadcrumb: 'Chỉnh sửa' },
 })
 
 const route = useRoute('/categories/[id]')

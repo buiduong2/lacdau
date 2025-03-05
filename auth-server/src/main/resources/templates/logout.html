@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::layout(
+    subTitle=~{::title/text()},
+    layoutTitle=~{::#layout-title/text()},
+    layoutDesc=~{::#layout-desc/text()},
+    mainContent=~{::#main-content},
+    otherStaticResources=null
+)}">
+
+<head>
+    <title>Đăng xuất</title>
+</head>
+
+<body>
+
+    <h1 id="layout-title">Thoát tài khoản</h1>
+    <p id="layout-desc">Mỗi người nên sử dụng riêng tài khoản, tài khoản nhiều người dùng có thể sẽ bị mất an toàn thông
+        tin</p>
+
+
+    <div class="max-w-md" id="main-content">
+
+        <form class="mt-8  grid grid-cols-1 gap-6" method="POST" th:action="@{/logout}">
+            <button class="bg-green-400 p-3 text-white hover:bg-green-300 text-lg">
+                Thoát
+            </button>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

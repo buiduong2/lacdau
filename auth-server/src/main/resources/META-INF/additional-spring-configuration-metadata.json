@@ -1,0 +1,87 @@
+{"properties": [
+  {
+    "name": "custom.admin.email",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.admin.email'"
+  },
+  {
+    "name": "custom.admin.password",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.admin.password'"
+  },
+  {
+    "name": "custom.mail.app.domain",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.mail.app.domain'"
+  },
+  {
+    "name": "custom.client.origins",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.client.origins'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.dashboard.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.dashboard.client-id'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.dashboard.client-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.dashboard.client-secret'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.dashboard.redirect-uri",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.dashboard.redirect-uri'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.dashboard.post-logout-redirect-uri",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.dashboard.post-logout-redirect-uri'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.client.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.client.client-id'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.client.client-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.client.client-secret'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.client.post-logout-redirect-uri",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.client.post-logout-redirect-uri'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.client.redirect-uri",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.client.redirect-uri'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.resource.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.resource.client-id'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.resource.client-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.resource.client-secret'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.dashboard.scope",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.dashboard.scope'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.client.scope",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.client.scope'"
+  },
+  {
+    "name": "custom.security.oauth2.client.registered.resource.scope",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.security.oauth2.client.registered.resource.scope'"
+  }
+]}

@@ -12,7 +12,7 @@ const dateFormat = new Intl.DateTimeFormat('vi-VN', {
   second: '2-digit',
 })
 
-export function formartCurrency(num: number): string {
+export function formartCurrency(num?: number | null): string {
   return num ? numberFormat.format(num) : '-'
 }
 
@@ -121,3 +121,42 @@ export function toSearchParams(key: string, arr: Array<any>): string {
 }
 
 type Predicate<T> = (t: T) => boolean
+
+export function debounce<T extends (...args: any[]) => void>(
+  wait: number,
+  callback: T,
+  immediate = false,
+) {
+  let timeout: ReturnType<typeof setTimeout> | null
+
+  return function <U>(this: U, ...args: Parameters<typeof callback>) {
+    const context = this
+    const later = () => {
+      timeout = null
+
+      if (!immediate) {
+        callback.apply(context, args)
+      }
+    }
+    const callNow = immediate && !timeout
+
+    if (typeof timeout === 'number') {
+      clearTimeout(timeout)
+    }
+
+    timeout = setTimeout(later, wait)
+
+    if (callNow) {
+      callback.apply(context, args)
+    }
+  }
+}
+export function calculateExpirationDate(expiresIn: number): Date {
+  const now = new Date()
+  const expirationDate = new Date(now.getTime() + expiresIn * 1000)
+  return expirationDate
+}
+
+export function isBlank(str: string) {
+  return !(str && str.trim().length > 0)
+}

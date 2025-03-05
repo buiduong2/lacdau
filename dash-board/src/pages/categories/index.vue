@@ -5,16 +5,20 @@ import type {
   TableFacetedFilterInput,
   TableFacetedFilterPick,
 } from '@/components/page/app/table/types'
-import { getTableClientDefaultConfig } from '@/components/page/app/table/utils'
+import {
+  defaulthandleRemoveByIdIn,
+  getTableClientDefaultConfig,
+} from '@/components/page/app/table/utils'
 import { columns } from '@/components/page/categories/table/column'
 import { toast } from '@/components/ui/toast'
 import { useVueTable } from '@tanstack/vue-table'
 import { storeToRefs } from 'pinia'
 definePage({
-  meta: { breadcrumb: ['Danh mục', 'Danh sách'] },
+  meta: { breadcrumb: 'Danh sách' },
 })
 const store = useCategoryStore()
 await store.fetchInit()
+
 const { categoies } = storeToRefs(store)
 const table = useVueTable(getTableClientDefaultConfig(columns, categoies))
 
@@ -42,7 +46,8 @@ const filterInputs: TableFacetedFilterInput[] = [
   },
 ]
 
-async function deleteById(id: number) {
+async function deleteById(id: number | string) {
+  id = Number(id)
   try {
     await fetchCategoryDelete(id)
     toast({ description: 'Xóa category thành congo' })
@@ -52,15 +57,21 @@ async function deleteById(id: number) {
     toast({ description: 'Xóa Category thất bại', type: 'foreground' })
   }
 }
+const action = useTableAction({
+  onCreate: '/categories/create',
+  onEdit: '/categories/[id]',
+  onDelete: deleteById,
+  removeByIdIn: (id, done) => {
+    defaulthandleRemoveByIdIn(id, done, toast)
+  },
+})
 </script>
 <template>
   <AppDataTableClientPage
     :table="table"
     :filter-inputs="filterInputs"
     :filter-picks="filterPicks"
-    create-route-name="/categories/create"
-    update-route-name="/categories/[id]"
-    @remove-by-id="deleteById"
+    :action="action"
     heading="Loại mặt hàng!"
     description="Danh sách thông tin tổng quan về các loại mặt hàng"
   />

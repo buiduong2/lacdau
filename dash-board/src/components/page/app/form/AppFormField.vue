@@ -1,12 +1,16 @@
 <template>
   <FormField v-slot="{ componentField }" :name="name">
     <FormItem class="w-full">
-      <FormLabel v-if="label"
-        >{{ label }} <span v-if="isRequired" class="text-destructive">*</span>
+      <FormLabel v-if="label">{{ label }} <span v-if="isRequired" class="text-destructive">*</span>
       </FormLabel>
-      <FormControl>
-        <slot v-bind="componentField"></slot>
-      </FormControl>
+      <template v-if="$slots.body">
+        <slot name="body" v-bind="componentField"></slot>
+      </template>
+      <template v-else>
+        <FormControl>
+          <slot v-bind="componentField"></slot>
+        </FormControl>
+      </template>
       <FormDescription v-if="desc">{{ desc }} </FormDescription>
       <FormMessage />
     </FormItem>

@@ -1,7 +1,12 @@
 package com.backend.repository;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
@@ -16,6 +21,8 @@ import com.backend.entities.Product;
 import com.backend.entities.ProductStatus;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
+
+    List<Product> findByProductCodeIn(List<String> ids);
 
     @EntityGraph(value = "Product.ProductInfo", type = EntityGraphType.LOAD)
     Optional<Product> findDetailByProductCodeAndStatus(String s, ProductStatus status);
@@ -42,6 +49,8 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
     Optional<Product> findForUpdateFullByProductCode(String id);
 
     Optional<Product> findByProductCode(String code);
+
+    Stream<Product> findByProductCodeIn(Collection<String> codes);
 
     @Query("""
             FROM Product AS p
@@ -79,10 +88,14 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
                         """)
     Long getIdByProductCode(String code);
 
-    
     @Query("""
             SELECT id FROM Product WHERE productCode IN ?1
                         """)
     List<Long> getIdsByProductCodeIn(String[] codes);
+
+    default Map<String, Product> findMapByProductCodeIn(Collection<String> productCodes) {
+        return this.findByProductCodeIn(productCodes)
+                .collect(Collectors.toMap(Product::getProductCode, Function.identity()));
+    }
 
 }

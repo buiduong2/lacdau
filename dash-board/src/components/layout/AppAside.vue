@@ -1,59 +1,130 @@
 <script setup lang="ts">
-const links = [
-  { to: '/', icon: 'lucide:home', tooltip: 'Dashboard' },
-  { to: '/order', icon: 'lucide:shopping-cart', tooltip: 'Orders' },
-  { to: '/products', icon: 'lucide:package', tooltip: 'Products' },
-  { to: '/categories', icon: 'lucide:cat', tooltip: 'Categories' },
-  { to: '/brands', icon: 'lucide:air-vent', tooltip: 'Brands' },
-  { to: '/attributes', icon: 'lucide:tags', tooltip: 'Attributes' },
-  { to: '/attribute-values', icon: 'lucide:tag', tooltip: 'Attribute Values' },
-  { to: '/relate-groups', icon: 'lucide:group', tooltip: 'Attribute Values' },
-  { to: '/customer', icon: 'lucide:users', tooltip: 'Customers' },
-  { to: '/analytics', icon: 'lucide:line-chart', tooltip: 'Analytics' },
-]
+import { Authority } from '@/types/auth/resTypes'
+import AppAsideFooter from './AppAsideFooter.vue'
+
+const authorities: Authority[] = useAuthStore().authorities
+function hasAuthority(authorities: Authority[], authority: Authority): boolean {
+  return authorities.includes(authority)
+}
+
+const groups = [
+  {
+    title: 'Quản lý bán hàng',
+    navs: [
+      {
+        title: 'Quản lý kho hàng',
+        url: '/products',
+        icon: 'lucide:boxes',
+        isActive: false,
+        show: hasAuthority(authorities, Authority.PRODUCT_MANAGE),
+        items: [
+          { title: 'Sản phẩm', url: '/products' },
+          { title: 'Nhóm Thuộc tính', url: '/attributes' },
+          { title: 'Thuộc tính con', url: '/attribute-values' },
+          { title: 'Thương hiệu', url: '/brands' },
+          { title: 'Danh mục', url: '/categories' },
+          { title: 'Nhóm sản phẩm', url: '/relate-groups' },
+        ],
+      },
+      {
+        title: 'Đơn hàng',
+        url: '/orders',
+        icon: 'lucide:shopping-cart',
+        isActive: false,
+        show: hasAuthority(authorities, Authority.ORDER_MANAGE),
+      },
+      {
+        title: 'Khách hàng',
+        url: '/customers',
+        icon: 'lucide:circle-user-round',
+        isActive: false,
+        show: hasAuthority(authorities, Authority.CUSTOMER_MANAGE),
+      },
+
+      {
+        title: 'Thống kê',
+        url: '/analytics',
+        icon: 'lucide:chart-no-axes-combined',
+        isActive: false,
+        show: hasAuthority(authorities, Authority.REPORT_VIEW),
+      },
+    ],
+  },
+  {
+    title: 'Quản lý Trang web',
+    navs: [],
+    show: hasAuthority(authorities, Authority.REPORT_VIEW),
+  },
+  {
+    title: 'Quản lý nội bộ',
+    navs: [
+      {
+        title: 'Tài khoản & bảo mật',
+        url: '/users',
+        icon: 'lucide:user-round-cog',
+        isActive: false,
+        show: hasAuthority(authorities, Authority.USER_MANAGE),
+        items: [
+          {
+            title: 'tài khoản',
+            url: '/users',
+          },
+          {
+            title: 'Vai trò người dùng',
+            url: '/roles',
+          },
+        ],
+      },
+    ],
+  },
+].map((g) => ({
+  ...g,
+  navs: g.navs.filter((nav) => nav.show == undefined || nav.show),
+}))
 </script>
 <template>
-  <TooltipProvider>
-    <aside class="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
-      <nav class="flex flex-col items-center gap-4 px-2 py-4">
-        <RouterLink
-          :to="`/products`"
-          class="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
-        >
-          <Icon icon="lucide:package-2" class="h-4 w-4 transition-all group-hover:scale-110" />
-          <span class="sr-only">Acme Inc</span>
-        </RouterLink>
+  <Sidebar collapsible="icon">
+    <SidebarHeader>
+      <SidebarMenu>
+        <SidebarMenuButton>
+          <Icon icon="lucide:home" />
+          <span class="text-lg font-semibold">LẮC ĐẦU</span>
+        </SidebarMenuButton>
+      </SidebarMenu>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup v-for="(group, index) in groups" :key="index">
+        <SidebarGroupLabel>{{ group.title }} </SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <Collapsible v-for="item in group.navs" :key="item.title" as-child :default-open="item.isActive"
+              class="group/collapsible">
+              <template v-if="item.items">
+                <SidebarMenuItem>
+                  <CollapsibleTrigger as-child>
+                    <AppAsideMenuButton :item="item" />
+                  </CollapsibleTrigger>
 
-        <Tooltip v-for="link in links" :key="link.to">
-          <TooltipTrigger as-child>
-            <RouterLink
-              :to="link.to"
-              active-class="bg-accent text-accent-foreground"
-              class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <Icon :icon="link.icon" class="h-5 w-5" />
-              <span class="sr-only">{{ link.tooltip }}</span>
-            </RouterLink>
-          </TooltipTrigger>
-          <TooltipContent side="right"> {{ link.tooltip }} </TooltipContent>
-        </Tooltip>
-      </nav>
-      <nav class="mt-auto flex flex-col items-center gap-4 px-2 py-4">
-        <Tooltip>
-          <TooltipTrigger as-child>
-            <a
-              href="#"
-              class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <Icon icon="lucide:settings" class="h-5 w-5" />
-              <span class="sr-only">Settings</span>
-            </a>
-          </TooltipTrigger>
-          <TooltipContent side="right"> Settings </TooltipContent>
-        </Tooltip>
-      </nav>
-    </aside>
-  </TooltipProvider>
+                  <CollapsibleContent>
+                    <AppASideSubMenu :sub-items="item.items" />
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </template>
+
+              <template v-else>
+                <SidebarMenuItem>
+                  <RouterLink :to="item.url">
+                    <AppAsideMenuButton :item="item"></AppAsideMenuButton>
+                  </RouterLink>
+                </SidebarMenuItem>
+              </template>
+            </Collapsible>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+    <AppAsideFooter />
+  </Sidebar>
 </template>
 
 <style scoped></style>

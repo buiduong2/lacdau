@@ -1,29 +1,88 @@
 <script setup lang="ts">
 const route = useRoute('product-id')
+const router = useRouter()
+const productId = route.params.id
 
-const { data: product, error } = await useAsyncData('products', () =>
-	$fetch(`/api/products/${route.params.id}`)
+const cartStore = useCartStore()
+await cartStore.initializeCart()
+const { data: product, error } = await useAsyncData<ProductDetailRes>(
+	'products',
+	() => $fetch(`/api/products/${productId}`),
+	{
+		transform(data) {
+			if (window) {
+				data.orderedQuantity = cartStore.getOrderedQuantityByProductId(
+					data.id
+				)
+			}
+			return data
+		}
+	}
 )
 
-if (error.value || !product.value) {
+if (error.value || !product.value || Array.isArray(product.value)) {
 	throw createError({ status: 404, message: 'Not Found' })
 }
+
 const breadcrumbs: Breadcrumb[] = useCategoryStore().getBreadcrumbById(
 	product.value.categoryId
 )
 
+let isFirstRender = product.value.orderedQuantity === undefined
+
+const canAddToCart = computed<boolean>(() => {
+	if (!product.value) {
+		return false
+	}
+
+	if (isFirstRender) {
+		return product.value.quantity > 0
+	}
+	if (product.value.orderedQuantity) {
+		return product.value.orderedQuantity < product.value.quantity
+	}
+	return true
+})
+
 const { notification } = useNotification()
 
 function addToCart() {
-	
-	notification('Thêm vào giỏ hàng thành công')
+	const isSuccess = cartStore.addToCart(product.value!)
+	if (isSuccess) {
+		notification('Thêm vào giỏ hàng thành công')
+	} else {
+		notification('Không còn hàng để bán', {
+			isSuccess: false
+		})
+	}
 }
+
+function buyNow() {
+	cartStore.addToCart(product.value!)
+	router.push('/cart')
+}
+
+onMounted(() => {
+	if (!isFirstRender) {
+		return
+	}
+	isFirstRender = false
+
+	if (product.value) {
+		product.value = {
+			...product.value,
+			orderedQuantity: cartStore.getOrderedQuantityByProductId(
+				product.value.id
+			)
+		}
+	}
+})
 </script>
 
 <template>
 	<AppBreadcrumb :breadcrumbs="breadcrumbs" />
 
-	<section class="container" v-if="product">
+	<section class="container" v-if="product && !Array.isArray(product)">
 		<div class="product-detail">
 			<div class="row">
 				<div class="col-9">
@@ -87,8 +146,14 @@ function addToCart() {
 								</div>
 
 								<div class="detail-footer">
-									<div class="detail-footer-action-list">
-										<button class="action-item primary">
+									<div
+										class="detail-footer-action-list"
+										v-if="canAddToCart"
+									>
+										<button
+											class="action-item primary"
+											@click="buyNow"
+										>
 											Mua ngay
 										</button>
 										<button
@@ -97,6 +162,20 @@ function addToCart() {
 										>
 											Thêm vào giỏ hàng
 										</button>
+									</div>
+									<div
+										class="detail-footer-action-list"
+										v-else
+									>
+										<p
+											v-if="product.quantity <= 0"
+											class="message error"
+										>
+											Đã hết hàng
+										</p>
+										<p v-else class="message warning">
+											Đã mua số lượng tối đa
+										</p>
 									</div>
 								</div>
 							</div>

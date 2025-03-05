@@ -6,7 +6,7 @@ import { zodSchema } from '@/components/page/product/form/schema'
 import type { ProductFull } from '@/types/products/resTypes'
 
 definePage({
-  meta: { breadcrumb: ['Danh mục', 'Chỉnh sửa'] },
+  meta: { breadcrumb: 'Chỉnh sửa' },
 })
 
 const router = useRouter()

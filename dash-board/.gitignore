@@ -1,6 +1,12 @@
 ## 
 auto-imports.d.ts
 components.d.ts
+Dockerfile
+.env.**
+.env
+!.env.example
+README.md
+
 # Logs
 logs
 *.log

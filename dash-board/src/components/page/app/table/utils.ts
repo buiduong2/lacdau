@@ -4,10 +4,11 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   type ColumnDef,
+  type ColumnFiltersState,
   type FilterFn,
   type TableOptionsWithReactiveData,
 } from '@tanstack/vue-table'
-import type { TableFilterOption } from './types'
+import type { TableFacetedFilterPick, TableFilterOption } from './types'
 
 interface Entity {
   id: number
@@ -49,4 +50,38 @@ export const filterPickFn: FilterFn<any> = (row, id, value) => {
   }
 
   throw new Error('Value must be an array')
+}
+
+export function initialFitlerQuery(
+  filterPicks: TableFacetedFilterPick[],
+  route: ReturnType<typeof useRoute>,
+): ColumnFiltersState {
+  return filterPicks
+    .map((f) => {
+      const id = f.columnId
+      const query = route.query[id]
+      if (!query) {
+        return { id, value: undefined }
+      }
+      return {
+        id,
+        value: Array.isArray(query) ? query : [query],
+      }
+    })
+    .filter((f) => f.value)
+}
+
+export function getDefaultColumnVisibility(
+  columns: ColumnDef<any, any>[],
+): Record<string, boolean> {
+  return Object.fromEntries(
+    columns
+      .filter((col) => Object.keys(col).length === 1)
+      .map((col) => [[col.id as string], false]),
+  )
+}
+
+export function defaulthandleRemoveByIdIn(ids: number[] | string[], done: () => void, toast: any) {
+  toast({ description: 'Hiện tại chưa có chức năng xóa ' + JSON.stringify(ids) })
+  done()
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::layout(
+    subTitle=~{::title/text()},
+    layoutTitle=~{::#layout-title/text()},
+    layoutDesc=~{::#layout-desc/text()},
+    mainContent=~{::#main-content},
+    otherStaticResources=null
+)}">
+
+<head>
+    <title>Đăng kí</title>
+</head>
+
+<body>
+
+    <h1 id="layout-title">Đăng kí tài khoản Lắc đầu</h1>
+    <p id="layout-desc">Mỗi người nên sử dụng riêng tài khoản, tài khoản nhiều người dùng có thể sẽ bị mất an toàn thông
+        tin</p>
+
+    <div class="max-w-md" id="main-content">
+        <form class="mt-8 max-w-md grid grid-cols-1 gap-6" method="POST" th:action="@{/register}"
+            v-on:submit.prevent="onSubmit" th:object="${data}">
+
+
+            <input th:replace="~{fragment::input(
+                label='Tên hiển thị',
+                type='text',
+                placeholder='Bùi Đức Dương',
+                name='displayName',
+                defaultValue=*{displayName},
+                error=${#fields.errors('displayName')}
+                )}" />
+
+
+            <input th:replace="~{fragment::input(
+                label='Email',
+                type='email',
+                placeholder='buiduong@gmail.com',
+                name='email',
+                defaultValue=*{email},
+                error=${#fields.errors('email')}
+                )
+            }" />
+
+
+            <input th:replace="~{fragment::input(
+            label='Tên tài khoản',
+            type='text',
+            placeholder='buiduong',
+            name='username',
+            defaultValue=*{username},
+            error=${#fields.errors('username')}
+            )
+        }" />
+
+            <input th:replace="~{fragment::input(
+                label='Mật khẩu',
+                type='password',
+                placeholder='******',
+                name='password',
+                defaultValue=*{password},
+                error=${#fields.errors('password')}
+                )
+            }" />
+
+            <input th:replace="~{fragment::input(
+                    label='Nhập lại mật khẩu',
+                    type='password',
+                    placeholder='******',
+                    name='confirmPassword',
+                    defaultValue=*{confirmPassword},
+                    error=${#fields.errors('confirmPassword')}
+                    )
+        }" />
+
+            <p>
+                <b>Hãy kiểm tra email để kích hoạt tài khoản của bạn.</b> Việc này sẽ giúp bạn dễ dàng nhận được các ưu
+                đãi đặc biệt, khôi phục tài khoản và cập nhật thông tin mới nhất từ chúng tôi.
+
+            </p>
+
+            <button class="bg-green-400 p-3 text-white hover:bg-green-300 text-lg">
+                Đăng kí
+            </button>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

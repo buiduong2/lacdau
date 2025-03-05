@@ -3,6 +3,7 @@ const props = defineProps<{
 	products: ProductSummaryRes[]
 	viewMode: 'grid' | 'list'
 }>()
+defineEmits<{ (e: 'addToCart', payload: ProductSummaryRes): void }>()
 </script>
 <template>
 	<div class="product-list" v-if="products.length">
@@ -16,6 +17,7 @@ const props = defineProps<{
 				:key="product.id"
 			>
 				<AppProduct
+					@add-to-cart="product => $emit('addToCart', product)"
 					:product="product"
 					:is-horizontal="props.viewMode === 'list'"
 				/>
@@ -44,6 +46,6 @@ const props = defineProps<{
 .empty-list a {
 	font-weight: 700;
 	color: green;
-	text-decoration: underline
+	text-decoration: underline;
 }
 </style>

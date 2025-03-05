@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.backend.exception.GenericErrorResponse;
+import com.backend.exception.OrderActionNotAllowedInStageException;
+import com.backend.exception.ProductOutOfStockException;
 import com.backend.exception.ResourceNotFoundException;
 import com.backend.exception.ValidationErrorResponse;
 import com.backend.exception.ValidationErrorResponse.ErrorDetail;
@@ -23,12 +25,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ValidationErrorResponse> handleConstraintViolationException(
-            ConstraintViolationException cve) {
+            ConstraintViolationException ex) {
         List<ErrorDetail> errorDetails = new ArrayList<>();
         ValidationErrorResponse errorResponse = new ValidationErrorResponse();
         errorResponse.setErrors(errorDetails);
 
-        cve.getConstraintViolations().forEach(cv -> {
+        ex.getConstraintViolations().forEach(cv -> {
             var errorDetail = new ErrorDetail();
             String path = cv.getPropertyPath().toString();
             String field = path.substring(path.indexOf('.') + 1);
@@ -44,22 +46,51 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ValidationErrorResponse> handleValidationException(
-            ValidationException ve) {
+            ValidationException ex) {
         ValidationErrorResponse errorResponse = new ValidationErrorResponse();
         ErrorDetail errorDetail = new ErrorDetail();
-        errorDetail.setField(ve.getFiled());
-        errorDetail.setMessage(ve.getMessage());
+        errorDetail.setField(ex.getFiled());
+        errorDetail.setMessage(ex.getMessage());
         errorResponse.setErrors(List.of(errorDetail));
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ProductOutOfStockException.class)
+    public ResponseEntity<ValidationErrorResponse> handleProductOutOfStockException(ProductOutOfStockException ex) {
+        ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+        errorResponse.setStatus(HttpStatus.CONFLICT.value());
+        errorResponse.setMessage(ex.getMessage());
+        ErrorDetail errorDetail = new ErrorDetail();
+        errorDetail.setField("productCode");
+        errorDetail.setMessage(ex.getProductCode());
+
+        ErrorDetail errorDetail2 = new ErrorDetail();
+        errorDetail2.setField("quantity");
+        errorDetail2.setMessage(String.valueOf(ex.getQuantity()));
+
+        errorResponse.setErrors(List.of(errorDetail, errorDetail2));
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
+
+    @ExceptionHandler(OrderActionNotAllowedInStageException.class)
+    public ResponseEntity<GenericErrorResponse> handleOrderActionNotAllowedInStageException(
+            OrderActionNotAllowedInStageException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                GenericErrorResponse.builder()
+                        .status(HttpStatus.CONFLICT.value())
+                        .error("Invalid Request for current Order Stage")
+                        .message(ex.getMessage())
+                        .timestamp(LocalDateTime.now())
+                        .build());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ValidationErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         List<ErrorDetail> errorDetails = new ArrayList<>();
         ValidationErrorResponse errorResponse = new ValidationErrorResponse();
         errorResponse.setErrors(errorDetails);
-
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             var errorDetail = new ErrorDetail();
             errorDetail.setField(error.getField());
@@ -72,7 +103,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<?> handleREsourseNotFoundException(ResourceNotFoundException ex) {
+    public ResponseEntity<GenericErrorResponse> handleREsourseNotFoundException(ResourceNotFoundException ex) {
         GenericErrorResponse error = GenericErrorResponse
                 .builder()
                 .status(HttpStatus.NOT_FOUND.value())

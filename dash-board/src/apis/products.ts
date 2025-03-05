@@ -2,33 +2,37 @@ import { type TypeSchema as ProductSchema } from '@/components/page/product/form
 import type { PageResponse } from '@/types'
 import type { ImageData } from '@/types/products/reqTypes'
 import type { Product, ProductCode, ProductFull } from '@/types/products/resTypes'
-import { resourceURL, type FormDataItem } from './utils'
+import { fetchDeleteMulti, type FormDataItem } from './utils'
 
 export async function fetchProducts(): Promise<PageResponse<Product>> {
-  const res = await fetch(`${resourceURL}/products${window.location.search.toString()}`, {})
-
-  if (res.ok) {
-    return (await res.json()) as PageResponse<Product>
-  }
-
-  throw new Error('Fetch Failed')
+  return fetchResouceSimple<PageResponse<Product>>(
+    `/api/admin/products${window.location.search.toString()}`,
+  )
 }
 
-export const fetchProductCode = () => fetchResouceSimple<ProductCode[]>('/product-codes')
+export async function fetchProductsList(ids: string[]): Promise<Product[]> {
+  const queryString = ids.map((id) => `ids=${id}`).join('&')
+  return fetchResouceSimple<Product[]>('/api/admin/products/list?' + queryString)
+}
+
+export async function fetchProductsListToMap(ids: string[]): Promise<Map<Product['id'], Product>> {
+  const products = await fetchProductsList(ids)
+  const map = new Map<string, Product>()
+  products.forEach((p) => {
+    map.set(p.id, p)
+  })
+
+  return map
+}
+
+export const fetchProductCode = () => fetchResouceSimple<ProductCode[]>('/api/admin/product-codes')
 
 export async function fetchProduct(id: string): Promise<ProductFull> {
-  const res = await fetch(`${resourceURL}/products/${id}`)
-  if (res.ok) {
-    return (await res.json()) as ProductFull
-  }
-  if (res.status === 404) {
-    throw new Error('NOT_FOUND')
-  }
-  throw new Error('')
+  return fetchResouceSimple<ProductFull>(`/api/admin/products/${id}`)
 }
 
 export function fetchCreateFullProduct(productUpdateFull: ProductSchema): Promise<Product> {
-  const formItems: FormDataItem<File | any>[] = []
+  const formItems: FormDataItem[] = []
   const thumbnails: File[] | undefined = productUpdateFull.thumbnails
 
   const imageData: ImageData = {
@@ -52,14 +56,14 @@ export function fetchCreateFullProduct(productUpdateFull: ProductSchema): Promis
   delete productUpdateFull.imageData
   formItems.push({ key: 'product', value: productUpdateFull, type: 'JSON' })
 
-  return fetchChangeFormData('products', formItems, 'POST')
+  return fetchChangeFormData('/api/admin/products', formItems, 'POST')
 }
 
 export function fetchUpdateFullProduct(
   productUpdateFull: ProductSchema,
   id: number | string,
 ): Promise<Product> {
-  const formItems: FormDataItem<File | any>[] = []
+  const formItems: FormDataItem[] = []
   const thumbnails: File[] | undefined = productUpdateFull.thumbnails
   const imageData: ImageData = {
     createThumbnails: productUpdateFull.imageData?.thumbnails
@@ -95,19 +99,13 @@ export function fetchUpdateFullProduct(
   delete productUpdateFull.imageData
   formItems.push({ key: 'product', value: productUpdateFull, type: 'JSON' })
 
-  return fetchChangeFormData('products/' + id, formItems, 'PUT')
+  return fetchChangeFormData('/api/admin/products/' + id, formItems, 'PUT')
 }
 
-export async function fetchProductDeleteById(id: string) {
-  return fetchDeleteSimple('products', id)
+export async function fetchProductDeleteById(id: string | number) {
+  return fetchDeleteSimple('/api/admin/products', id)
 }
 
-export async function fetchProductDeleteByIdIn(ids: string[]) {
-  const query = toSearchParams('id', ids)
-  const res = await fetch(`${resourceURL}/products?${query}`, { method: 'DELETE' })
-
-  if (res.ok) {
-    return
-  }
-  throw new Error('Fetch DELETE IN Failed')
+export async function fetchProductDeleteByIdIn(ids: string[] | number[]) {
+  return fetchDeleteMulti(`/api/admin/products`, ids)
 }

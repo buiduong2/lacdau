@@ -34,6 +34,12 @@ public interface TestProductRepository extends ProductRepository {
 
     List<Product> findFirst2ByRelateInfoIsNotNull();
 
+    List<Product> findFirst2ByQuantityGreaterThan(int quantity);
+
+    List<Product> findFirst2ByQuantityLessThanAndQuantityGreaterThan(int greatest,int smallest);
+
+    List<Product> findFirst2ByQuantity(int quantity);
+
     @Query("""
             SELECT COUNT(*) FROM Product WHERE category.id = ?1
                     """)

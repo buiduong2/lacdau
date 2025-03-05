@@ -2,9 +2,9 @@ import type { Category } from '@/types/categories/resTypes'
 import { type TypeSchema as CategorySChema } from '@/components/page/categories/form/schema'
 import type { FormDataItem } from './utils'
 
-export const fetchCategories = () => fetchResouceSimple<Category[]>('/categories')
+export const fetchCategories = () => fetchResouceSimple<Category[]>('/api/admin/categories')
 export async function fetchCategory(id: number): Promise<Category> {
-  return fetchResouceSimple('/categories/' + id)
+  return fetchResouceSimple('/api/admin/categories/' + id)
 }
 
 export async function fetchCategoryCreate(data: CategorySChema) {
@@ -18,7 +18,7 @@ export async function fetchCategoryCreate(data: CategorySChema) {
 
   formItems.push({ key: 'category', value: data, type: 'JSON' })
 
-  return fetchChangeFormData('categories', formItems, 'POST')
+  return fetchChangeFormData('/api/admin/categories', formItems, 'POST')
 }
 
 export async function fetchCategoryEdit(data: CategorySChema, id: number) {
@@ -32,9 +32,9 @@ export async function fetchCategoryEdit(data: CategorySChema, id: number) {
 
   formItems.push({ key: 'category', value: data, type: 'JSON' })
 
-  return fetchChangeFormData('categories/' + id, formItems, 'PUT')
+  return fetchChangeFormData('/api/admin/categories/' + id, formItems, 'PUT')
 }
 
 export async function fetchCategoryDelete(id: number) {
-  return fetchDeleteSimple('categories', id)
+  return fetchDeleteSimple('/api/admin/categories', id)
 }

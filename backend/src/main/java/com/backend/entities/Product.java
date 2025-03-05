@@ -76,7 +76,7 @@ public class Product {
     private String productCode;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('ACTIVE','DRAFT','ARCHIVED')", nullable = false)
+    @Column(nullable = false)
     private ProductStatus status = ProductStatus.ACTIVE;
 
     @CreationTimestamp
@@ -109,6 +109,14 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Brand brand;
+
+    public void increaseQuantity(int quantity) {
+        this.quantity += quantity;
+    }
+
+    public void decreaseQuantity(int quantity) {
+        this.quantity -= quantity;
+    }
 
     @Override
     public final boolean equals(Object o) {

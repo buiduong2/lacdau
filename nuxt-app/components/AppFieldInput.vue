@@ -10,13 +10,14 @@
 	<div :class="colInput || 'col-9'">
 		<input
 			class="form-input"
-			:class="{ eror: error }"
+			:class="{ error: error }"
 			:type="type"
 			:id="name"
 			:name="name"
 			:placeholder="placeholder"
 			@input="onInput"
 			@blur="onBlur"
+            :value="value"
 		/>
 		<p class="form-message error" v-if="error">{{ error }}</p>
 	</div>
@@ -32,7 +33,7 @@ const props = defineProps<{
 	colInput?: string
 	required?: boolean
 }>()
-const { error, onBlur, onInput } = useField(props.name)
+const { error, onBlur, onInput,value } = useField(props.name)
 </script>
 
 <style scoped></style>

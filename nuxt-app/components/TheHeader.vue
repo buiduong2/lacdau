@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
-import { salesPlatformLinks } from '~/mockData/header';
+import { Icon } from '@iconify/vue'
+import { salesPlatformLinks } from '~/mockData/header'
 
 const isActivemMenu = ref(false)
-const isAuthenticated = true
-const username = 'Bui Duc Duong'
-
 const showCart = ref<boolean>(false)
+const authStore = useAuthStore()
+const cartStore = useCartStore()
+await cartStore.initializeCart()
 </script>
 
 <template>
@@ -56,22 +56,36 @@ const showCart = ref<boolean>(false)
 							<a href="#" class="news-link">
 								<i class="icon icon-news"></i> Tin tức</a
 							>
-							<div class="auth-list" v-if="!isAuthenticated">
+							<div
+								class="auth-list"
+								v-if="!authStore.isAuthenticated"
+							>
 								<i class="icon icon-user"> </i>
-								<NuxtLink to="/register" class="auth-action"
-									>Đăng ký</NuxtLink
+								<a
+									href="#"
+									class="auth-action"
+									@click.prevent="authStore.register"
 								>
+									Đăng ký
+								</a>
 								<span>/</span>
-								<NuxtLink to="/login" class="auth-action"
-									>Đăng nhập</NuxtLink
+								<a
+									href="#"
+									class="auth-action"
+									@click.prevent="authStore.login"
 								>
+									Đăng nhập
+								</a>
 							</div>
-							<div class="auth-list">
+							<div
+								v-else-if="authStore.profile"
+								class="auth-list"
+							>
 								<i class="icon icon-user"> </i>
 								<NuxtLink to="/account" class="auth-action">
 									<span style="font-weight: 400">
 										Xin chào</span
-									>, {{ username }}
+									>, {{ authStore.profile.displayName }}
 								</NuxtLink>
 							</div>
 						</div>
@@ -145,15 +159,27 @@ const showCart = ref<boolean>(false)
 						<NuxtLink to="/cart">
 							<button class="btn btn--cart">
 								<i class="icon icon-cart">
-									<span class="cart-quantity">99</span>
+									<ClientOnly>
+										<span class="cart-quantity">{{
+											cartStore.itemCount
+										}}</span>
+									</ClientOnly>
 								</i>
 								Giỏ hàng
 							</button>
 						</NuxtLink>
 
-						<Transition name="cart">
-							<TheCart v-if="showCart" />
-						</Transition>
+						<ClientOnly>
+							<Transition name="cart">
+								<TheCart
+									v-if="showCart"
+									:isCartEmpty="cartStore.isCartEmpty"
+									:itemCount="cartStore.itemCount"
+									:items="cartStore.items"
+									:subTotalPrice="cartStore.subTotalPrice"
+								/>
+							</Transition>
+						</ClientOnly>
 					</div>
 				</div>
 			</div>

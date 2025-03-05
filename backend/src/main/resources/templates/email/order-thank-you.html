@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{email/layout::layout(
+    title=~{::#title/text()},
+    preview=~{::#preview/text()}, 
+    topContents=~{::#top-content}, 
+    actionUrl=${email.clientHomePage},   
+    actionText=~{::#action-text/text()},
+    bottomContents=~{::#bottom-content},
+)}">
+
+<head>
+    <title>Lắc đầu - Cảm ơn bạn đã mua sắm tại cửa hàng</title>
+</head>
+
+<body>
+
+    <h1 id="title">Lắc đầu - Cảm ơn bạn đã mua sắm tại Lắc đầu</h1>
+    <p id="preview">Chúng tôi rất vui khi đơn hàng <strong th:text="'#' + ${email.orderId}">#[Mã đơn hàng]</strong> của
+        bạn đã được giao thành công! Hy vọng bạn hài lòng với sản phẩm.</p>
+
+
+    <div id="top-content">
+        <p> Chào
+            <strong th:text="${email.customerName}">
+                [Tên khách hàng],
+            </strong>
+        </p>
+
+        <p>
+            Chúng tôi rất vui khi đơn hàng <strong th:text="'#' + ${email.orderId}">#[Mã đơn hàng]</strong> của bạn đã
+            được giao thành công! Hy vọng bạn hài lòng với sản phẩm
+        </p>
+
+
+    </div>
+    <a id="action-text">Bấm vào đây để tiếp tục mua sắm </a>
+
+    <div id="bottom-content">
+        <p>🎁 Đừng quên theo dõi chúng tôi để nhận thông tin về ưu đãi và sản phẩm mới nhất!
+            Nếu có bất kỳ vấn đề gì với đơn hàng, đừng ngần ngại liên hệ với chúng tôi qua Email@Gmail.com.
+
+        </p>
+
+        <p>Chúc bạn một ngày tuyệt vời!</p>
+        <p>Trân trọng, </p>
+        <p>Đội ngũ Lắc đầu</p>
+    </div>
+
+</body>
+
+</html>

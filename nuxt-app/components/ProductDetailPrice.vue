@@ -13,13 +13,15 @@ const saleable = { ...props }
 			<tbody>
 				<tr>
 					<td class="price-label">Giá bán:</td>
-					<td class="price-value--old">{{ originalPrice }}đ</td>
+					<td class="price-value--old">
+						{{ formatCurrencyVND(originalPrice) }}
+					</td>
 				</tr>
 				<tr>
 					<td class="price-label">Giá khuyến mại:</td>
 					<td class="price-value--active">
 						<span class="value">
-							{{ salePrice ?? originalPrice }}đ
+							{{ formatCurrencyVND(salePrice ?? originalPrice) }}
 						</span>
 						(Tiết kiệm
 						{{ computedDiscountPercent(saleable) }}%)
@@ -32,7 +34,9 @@ const saleable = { ...props }
 				<tr>
 					<td class="price-label">Giá bán:</td>
 					<td class="price-value--active">
-						<span class="value"> {{ originalPrice }}đ </span>
+						<span class="value">
+							{{ formatCurrencyVND(originalPrice) }}
+						</span>
 					</td>
 				</tr>
 			</tbody>

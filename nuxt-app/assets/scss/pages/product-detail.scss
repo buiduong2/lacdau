@@ -304,6 +304,22 @@
                         background-color: #FF5C00;
                     }
                 }
+
+                .message {
+                    &.error {
+                        color: red;
+                    }
+
+                    &.warning {
+                        color: orange;
+                    }
+
+                    font-size: 2.0rem;
+
+                    font-weight: 700;
+                }
+
+
             }
         }
     }

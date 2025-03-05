@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { columns } from '@/components/page/product/table/column'
+import { getFilters } from '@/components/page/product/table/filters'
 import { toast } from '@/components/ui/toast'
 import type { SortMapper } from '@/composables/useSortQuery'
 import type { Page } from '@/types'
 import type { Product } from '@/types/products/resTypes'
 import { RouterLink } from 'vue-router'
 definePage({
-  meta: { breadcrumb: ['Sản phẩm', 'Danh sách'] },
+  meta: { breadcrumb: 'Danh sách' },
 })
 const sortMapper: SortMapper<Product> = {
   mainImage: 'mainImage.src',
@@ -14,16 +15,22 @@ const sortMapper: SortMapper<Product> = {
 
 const router = useRouter()
 const products = ref<Product[]>([])
+
+const { filterInputs, filterPicks } = await getFilters()
 const page = ref<Page>()
 async function fetchItem() {
-  const { content, page: pageRes } = await fetchProducts()
-  products.value = content
-  page.value = pageRes
+  try {
+    const { content, page: pageRes } = await fetchProducts()
+    products.value = content
+    page.value = pageRes
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 await fetchItem()
 
-async function removeByIdIn({ payload: ids, done }: { payload: string[]; done: () => void }) {
+async function removeByIdIn(ids: string[] | number[], done: () => void) {
   fetchProductDeleteByIdIn(ids)
     .then(async () => {
       done()
@@ -35,7 +42,7 @@ async function removeByIdIn({ payload: ids, done }: { payload: string[]; done: (
     )
 }
 
-async function removeById(id: string) {
+async function removeById(id: string | number) {
   fetchProductDeleteById(id)
     .then(async () => {
       await fetchItem()
@@ -44,12 +51,7 @@ async function removeById(id: string) {
     .catch(() => toast({ description: `Xóa Product ${id} thất bại`, variant: 'destructive' }))
 }
 
-function editById(id: string) {
-  toast({ description: `Đang chuyển trang` })
-  router.push({ name: '/products/[id]', params: { id } })
-}
-
-function cloneById(id: string) {
+function cloneById(id: string | number) {
   toast({ description: `Đang chuyển trang` })
   router.push({ name: '/products/create', query: { id } })
 }
@@ -57,6 +59,21 @@ function cloneById(id: string) {
 function onQueryChange() {
   fetchItem()
 }
+
+const action = useTableAction({
+  onCreate: '/products/create',
+  removeByIdIn: removeByIdIn,
+  onDelete: removeById,
+  onEdit: '/products/[id]',
+  groupTop: [
+    {
+      type: 'custom',
+      click: cloneById,
+      icon: 'lucide:copy',
+      text: 'Tạo bản sao',
+    },
+  ],
+})
 </script>
 
 <template>
@@ -66,20 +83,19 @@ function onQueryChange() {
         <h2 class="text-2xl font-bold tracking-tight">Sản phẩm!</h2>
         <p class="text-muted-foreground">Danh sách thông tin tổng quan về sản phẩm</p>
       </div>
-      <Button class="text-base w-[180px]" variant="default" :as="RouterLink" to="/products/create">
+      <Button class="text-base w-[180px]" variant="default" @click="router.push(action.createUrl)">
         <Icon icon="lucide:circle-plus" />Tạo mới</Button
       >
     </div>
-    <DataTable
+    <AppDataTableServer
+      :action="action"
+      :filterInputs="filterInputs"
+      :filter-picks="filterPicks"
       :data="products"
       :columns="columns"
       :soring-mapper="sortMapper"
       :page="page!"
       @query-change="onQueryChange"
-      @remove-by-id="removeById"
-      @edit-by-id="editById"
-      @clone-by-id="cloneById"
-      @remove-by-id-in="removeByIdIn"
     />
   </div>
 </template>

@@ -1,17 +1,7 @@
 <script setup lang="ts">
-import * as z from 'zod'
-
-const loginShema = z.object({
-	email: z
-		.string({ required_error: 'Mời bạn nhập địa chỉ Email' })
-		.email({ message: 'Mời bạn nhập địa chỉ email đúng định dạng' }),
-	password: z.string({ message: 'Mời bạn nhập mật khẩu' })
-})
-
-const form = useForm(loginShema)
-
-const handleLogin = form.submit(value => {})
+const authStore = useAuthStore()
 </script>
+
 <template>
 	<AppBreadcrumb
 		:breadcrumbs="[
@@ -22,41 +12,25 @@ const handleLogin = form.submit(value => {})
 		<div class="container">
 			<div class="row">
 				<div class="col-6">
-					<form
-						class="form"
-						method="POST"
-						@submit.prevent="handleLogin"
-					>
+					<div class="form">
 						<h3 class="section-title">
-							Thông tin khách hàng đăng nhập hệ thống
+							Bạn chưa đăng nhập. Hãy đằng nhập
 						</h3>
 
 						<div class="row content-center items-center gx-3 gy-3">
-							<AppFieldInput
-								name="email"
-								type="email"
-								label="Email đăng nhập"
-							/>
-
-							<AppFieldInput
-								name="password"
-								type="password"
-								label="Mật Khẩu"
-							/>
-
 							<div class="col-3"></div>
 							<div class="col-9">
 								<div class="form-action">
-									<button class="form-btn">Đăng nhập</button>
-									<NuxtLink
-										class="form-link"
-										to="/password-recovery"
-										>Quên mật khẩu</NuxtLink
+									<button
+										class="form-btn"
+										@click="authStore.login"
 									>
+										Mời bạn bấm vào đây để đăng nhập
+									</button>
 								</div>
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="col-6">
 					<div class="section-detail">
@@ -67,9 +41,12 @@ const handleLogin = form.submit(value => {})
 						</p>
 
 						<div class="section-action">
-							<NuxtLink class="section-link" to="/register"
-								>Đăng ký tài khoản</NuxtLink
+							<button
+								class="section-link"
+								@click="authStore.login()"
 							>
+								Đăng ký tài khoản
+							</button>
 						</div>
 					</div>
 				</div>

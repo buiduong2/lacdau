@@ -17,6 +17,7 @@ public class ProductInfoDTO implements Serializable {
     private int viewCount;
     private String[] specifications;
     private Integer salePrice;
+    private int quantity;
     private int originalPrice;
     private int categoryId;
     private List<ThumbnailDTO> thumbnails;

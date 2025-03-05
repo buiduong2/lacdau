@@ -7,11 +7,9 @@ export const useRelateStore = defineStore('relate-store', () => {
 
   async function fetchInit() {
     if (!isInited) {
-      const data = await fetchRelateGroups()
-      relateGroups.value = data
+      relateGroups.value = await fetchRelateGroups()
       isInited = true
     }
-    return
   }
 
   function setDirty() {

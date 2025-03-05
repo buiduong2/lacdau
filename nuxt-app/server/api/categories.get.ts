@@ -1,6 +1,6 @@
-import { resourceUrl } from '~/utils/constant'
 import { CategoryRes } from '~/utils/typesFetch'
+import { RESOURCE_URL } from '../utils/constrants'
 
 export default defineEventHandler(event => {
-	return $fetch(`${resourceUrl}/api/categories`) as Promise<CategoryRes[]>
+	return $fetch(`${RESOURCE_URL}/api/categories`) as Promise<CategoryRes[]>
 })

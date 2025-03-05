@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-definePage({ meta: { breadcrumb: ['Phân tích'] } })
+definePage({ meta: { breadcrumb: 'Phân tích' } })
 </script>
 
 <style scoped></style>

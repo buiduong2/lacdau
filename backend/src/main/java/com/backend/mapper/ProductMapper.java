@@ -25,7 +25,6 @@ import com.backend.entities.AttributeValue;
 import com.backend.entities.Brand;
 import com.backend.entities.Image;
 import com.backend.entities.Product;
-import com.backend.entities.ProductDetail;
 import com.backend.repository.AttributeValueRepository;
 import com.backend.repository.RelateInfoRepository;
 
@@ -41,16 +40,19 @@ public abstract class ProductMapper {
     @Autowired
     private AttributeValueRepository attributeValueRepository;
 
-    @Mapping(target = "thumbnails", expression = "java( toThumbnailDto(product) )")
+    @Mapping(target = "thumbnails", source = "detail.thumbnails")
     @Mapping(target = "relatedProducts", expression = "java( getRelateDtos(product) )")
     @Mapping(target = "categoryId", source = "category.id")
     @Mapping(target = "id", source = "productCode")
+    @Mapping(target = "specifications", source = "detail.specifications")
     public abstract ProductInfoDTO toProductInfoDto(Product product);
 
     public abstract ThumbnailDTO fromImagetoThumbnailDTO(Image productImage);
 
     @Mapping(target = "id", source = "productCode")
     public abstract ProductSummaryDTO toProductSummaryDto(Product product);
+
+    public abstract List<ProductSummaryDTO> tProductSummaryDTOs(List<Product> products);
 
     @Mapping(target = "natureId", source = "id")
     @Mapping(target = "id", source = "productCode")
@@ -59,6 +61,8 @@ public abstract class ProductMapper {
     @Mapping(target = "detailId", source = "detail.id")
     @Mapping(target = "relateInfoId", source = "relateInfo.id")
     public abstract ProductAdminDTO toProductAdminDto(Product product);
+
+    public abstract List<ProductAdminDTO> toProductAdminDtos(List<Product> byProductCodeIn);
 
     @Mapping(target = "relateInfo.relateGroupId", source = "relateInfo.relateGroup.id")
     @Mapping(target = "id", source = "productCode")
@@ -74,11 +78,6 @@ public abstract class ProductMapper {
     public abstract FilterItemDTO toFilterAttributeValueDto(AttributeValue productAttributeValue);
 
     public abstract FilterItemDTO[] toFilterAttributeValueDtos(List<AttributeValue> attributeValues);
-
-    public List<ThumbnailDTO> toThumbnailDto(Product product) {
-        ProductDetail productDetail = product.getDetail();
-        return productDetail.getThumbnails().stream().map(this::fromImagetoThumbnailDTO).toList();
-    }
 
     public List<RelateDTO> getRelateDtos(Product product) {
         if (product.getRelateInfo() == null) {
@@ -127,4 +126,5 @@ public abstract class ProductMapper {
 
         return sb.toString();
     }
+
 }

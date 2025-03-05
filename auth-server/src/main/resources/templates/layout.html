@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="layout(
+                                                        subTitle,
+                                                        otherStaticResources, 
+                                                        layoutTitle, 
+                                                        layoutDesc,   
+                                                        mainContent
+                                                    )">
+
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lắc Đầu - <span th:replace="${subTitle} ?: ~{}"></span></title>
+
+
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+
+    <th:block th:replace="${otherStaticResources} ?: ~{}" th:if="${otherStaticResources}"></th:block>
+
+<body>
+    <div class="antialiased text-gray-900 px-6">
+        <div class="max-w-xl mx-auto py-12 divide-y md:max-w-4xl">
+            <div class="py-8">
+                <div class="size-60 mx-auto"><img th:src="@{/img/logo.png}" /></div>
+                <h1 class="text-4xl font-bold" th:insert="${layoutTitle}">Layout Title</h1>
+                <p class="mt-2 text-lg text-gray-600" th:insert="${layoutDesc}">
+                    Layout Desccription
+                </p>
+                <div class="mt-4 flex space-x-4">
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}" th:if="${currentPath != '/login'}"
+                            class="text-lg underline text-green-500 hover:text-green-400 transition-colors">
+                            Đăng nhập ngay
+                        </a>
+                        <a th:href="@{/register}" th:if="${currentPath != '/register'}"
+                            class="text-lg underline text-green-500 hover:text-green-400 transition-colors">
+                            Đăng kí
+                        </a>
+                        <a th:href="@{/forgot-password}" th:if="${currentPath != '/forgot-password'}"
+                            class="text-lg underline text-green-500 hover:text-green-400 transition-colors">
+                            Quên mật khẩu
+                        </a>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <a th:href="@{/}"
+                            class="text-lg underline text-green-500 hover:text-green-400 transition-colors">
+                            Trang chủ
+                        </a>
+                        <a th:href="@{/profile}"
+                            class="text-lg underline text-green-500 hover:text-green-400 transition-colors">
+                            Thông tin cá nhân
+                        </a>
+                        <a th:href="@{/change-password}"
+                            class="text-lg underline text-green-500 hover:text-green-400 transition-colors">
+                            Đổi mật khẩu
+                        </a>
+                        <a th:href="@{/logout}" th:if="${currentPath != '/logout'}"
+                            class="text-lg underline text-green-500 hover:text-green-400 transition-colors">
+                            Logout
+                        </a>
+                    </th:block>
+                </div>
+            </div>
+            <div class="max-w-md">
+                <article th:insert="${mainContent} ?: ~{}">
+                    <p>Nội dung chính của trang</p>
+                </article>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

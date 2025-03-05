@@ -104,9 +104,17 @@ public class ProductService {
                 .map(productMapper::toProductSummaryDto);
     }
 
+    public List<ProductSummaryDTO> finSummaryDTOsByProductCodeIn(List<String> productCodes) {
+        return productMapper.tProductSummaryDTOs(productRepository.findByProductCodeIn(productCodes));
+    }
+
     public Page<ProductAdminDTO> findAdminDtoBy(FilterProductAdmin param, Pageable pageable) {
         return productRepository.findAll(productSpecs.byFilter(param), pageable)
                 .map(productMapper::toProductAdminDto);
+    }
+
+    public List<ProductAdminDTO> findAdminDTOByProductCodeIn(List<String> productCodes) {
+        return productMapper.toProductAdminDtos(productRepository.findByProductCodeIn(productCodes));
     }
 
     public FilterDTO findFilterByCategoryId(Long id) {

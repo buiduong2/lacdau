@@ -10,9 +10,9 @@ const breadcrumbs = computed<BreadCrumb[]>(() => {
     const path = r.path
 
     if (meta) {
-      names.push(...(r.meta.breadcrumb as string[]))
+      names.push(r.meta.breadcrumb)
+      paths.push(path)
     }
-    paths.push(path)
   })
 
   if (paths.length > names.length) {

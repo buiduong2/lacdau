@@ -1,15 +1,10 @@
 import type { ValidationError } from '@/types'
-
-export const resourceURL = import.meta.env.VITE_RESOURCE_URL
+import { AxiosService } from '@/utils/axios-service'
+import { AxiosError } from 'axios'
 
 export async function fetchResouceSimple<R>(uri: string): Promise<R> {
-  const res = await fetch(`${resourceURL}${uri}`)
-
-  if (res.ok) {
-    return (await res.json()) as R
-  }
-
-  throw await res.json()
+  const res = await getResourceClient().get(uri)
+  return res.data
 }
 
 export interface FormDataItem<T = any> {
@@ -39,17 +34,15 @@ export async function fetchChangeFormData<T>(
     }
   })
 
-  const res = await fetch(`${resourceURL}/${uri}`, {
-    method: method,
-    body: formData,
-  })
-
-  if (res.ok) {
-    return (await res.json()) as T
-  }
-  if (res.status === 400) {
-    const errorData = await res.json()
-    throw errorData as ValidationError
+  try {
+    const res = await getResourceClient()(`/${uri}`, { method, data: formData })
+    return res.data
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.status === 400) {
+        throw error.response?.data as ValidationError
+      }
+    }
   }
 
   throw new Error('Error')
@@ -60,30 +53,37 @@ export async function fetchChangeSimple<I, R>(
   body: unknown,
   method: 'PUT' | 'POST',
 ): Promise<R> {
-  const res = await fetch(`${resourceURL}/${uri}`, {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
-
-  if (res.ok) {
-    return (await res.json()) as R
-  }
-  if (res.status === 400) {
-    const errorData = await res.json()
-    throw errorData as ValidationError
+  try {
+    const res = await getResourceClient()(uri, { method, data: body })
+    return res.data
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.status === 400) {
+        throw error.response?.data as ValidationError
+      }
+    }
   }
 
   throw new Error('Error')
 }
 
 export async function fetchDeleteSimple(uri: string, id: any) {
-  const res = await fetch(`${resourceURL}/${uri}/${id}`, { method: 'DELETE' })
-  if (res.ok) {
-    return
-  } else {
-    throw new Error('Error on Delete')
-  }
+  await getResourceClient().delete<void>(`/${uri}/${id}`)
+}
+
+export async function fetchDeleteMulti(uri: string, ids: string[] | number[]) {
+  return getResourceClient().delete(uri, {
+    params: { id: ids },
+    paramsSerializer: {
+      indexes: null,
+    },
+  })
+}
+
+export function getAuthClient(): AxiosService['authClient'] {
+  return AxiosService.getInstance().getAuthClient()
+}
+
+export function getResourceClient(): AxiosService['resourceClient'] {
+  return AxiosService.getInstance().getResourceClient()
 }

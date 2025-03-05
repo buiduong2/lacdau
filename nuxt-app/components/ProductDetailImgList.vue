@@ -6,11 +6,11 @@ interface Image {
 }
 const index = ref<number>(0)
 const images: Image[] = [
-	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' },
-	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' },
-	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' },
-	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' },
-	{ src: '/_nuxt/assets/imgs/product-detail-1.jpg', alt: '' }
+	{ src: '/imgs/product-detail-1.jpg', alt: '' },
+	{ src: '/imgs/product-detail-1.jpg', alt: '' },
+	{ src: '/imgs/product-detail-1.jpg', alt: '' },
+	{ src: '/imgs/product-detail-1.jpg', alt: '' },
+	{ src: '/imgs/product-detail-1.jpg', alt: '' }
 ]
 const pickedImage = computed<Image | undefined>(() => images[index.value])
 const wrapperEl = ref()
@@ -50,7 +50,7 @@ const { isAtEnd, isAtStart, next, onDrag, onDragEnd, onDragStart, prev } =
 							:class="{ active: index === i }"
 							@click="index = i"
 						>
-							<img :src="image.src" :alt="image.src" />
+							<NuxtImg :src="image.src" :alt="image.src" />
 						</div>
 					</div>
 				</div>

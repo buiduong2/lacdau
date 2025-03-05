@@ -6,10 +6,10 @@ interface Props {
   page: Page
 }
 
-export function usePageQuery<T>(props: Props, route: RouteLocation) {
+export function usePageQuery(props: Props, route: RouteLocation) {
   const pagination = ref<PaginationState>({
-    pageIndex: Number(route.query.page) || 0,
-    pageSize: Number(route.query.limit) || 10,
+    pageIndex: Number(route.query.page) || props.page.number,
+    pageSize: Number(route.query.limit) || props.page.size,
   })
 
   const pageQuery = computed(() => ({

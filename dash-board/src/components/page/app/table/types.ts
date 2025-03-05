@@ -1,30 +1,24 @@
+import type { TableAction } from '@/composables/useTableAction'
 import type { Table } from '@tanstack/vue-table'
 import type { Component } from 'vue'
-import type { RouteNamedMap } from 'vue-router/auto-routes'
 
 export interface TablePageProps extends TableClientProps {
   heading: string
   description: string
-  createRouteName: keyof RouteNamedMap
-  updateRouteName: keyof RouteNamedMap
+  action: TableAction
 }
 
-export interface TablePageEmits {
-  (e: 'removeSelectedRow'): void
-  (e: 'removeById', payload: any): void
+export interface TableClientProps extends TableClientDropdown, TableClientToolbar {}
+
+export interface TableClientDropdown {
+  action: TableAction
 }
 
-export interface TableClientEmits {
-  (e: 'editById', payload: any): void
-  (e: 'cloneById', payload: any): void
-  (e: 'removeById', payload: any): void
-  (e: 'removeSelectedRow'): void
-}
-
-export interface TableClientProps {
-  table: Table<any>
+export interface TableClientToolbar {
   filterPicks?: TableFacetedFilterPick[]
   filterInputs?: TableFacetedFilterInput[]
+  action: TableAction
+  table: Table<any>
 }
 
 export interface TableFilterOption {

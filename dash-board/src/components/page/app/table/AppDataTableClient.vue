@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import { FlexRender } from '@tanstack/vue-table'
-import { columns } from '../../categories/table/column'
-import type { TableClientEmits, TableClientProps } from './types'
+import type { TableClientProps } from './types'
 
 defineProps<TableClientProps>()
-
-defineEmits<TableClientEmits>()
 </script>
 
 <template>
   <div class="space-y-4">
     <AppDataTableToolbar
       :table="table"
-      @remove-selected-row="$emit('removeSelectedRow')"
+      :action="action"
       :filterPicks="filterPicks"
       :filter-inputs="filterInputs"
     />
@@ -53,12 +50,7 @@ defineEmits<TableClientEmits>()
                 </TableCell>
                 <TableCell>
                   <div class="text-center">
-                    <AppDataTableDropDown
-                      :row="row.original"
-                      @edit="(payload) => $emit('editById', payload)"
-                      @clone="(payload) => $emit('cloneById', payload)"
-                      @remove="(payload) => $emit('removeById', payload)"
-                    />
+                    <AppDataTableDropDown :row="row.original" :action="action" />
                   </div>
                 </TableCell>
               </TableRow>
@@ -66,7 +58,7 @@ defineEmits<TableClientEmits>()
           </template>
           <template v-else>
             <TableRow>
-              <TableCell :colspan="columns.length" class="h-24 text-center">
+              <TableCell :colspan="table.getAllColumns().length + 2" class="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

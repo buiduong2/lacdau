@@ -41,7 +41,8 @@ export const zodSchema = z.object({
         )
         .transform((arr) => {
           return arr ? arr.map((a, index) => ({ ...a, position: index + 1 })) : arr
-        }),
+        })
+        .optional(),
     })
     .optional(),
   mainImage: z.any().optional(),

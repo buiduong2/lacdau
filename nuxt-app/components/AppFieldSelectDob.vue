@@ -1,3 +1,46 @@
+<script setup lang="ts">
+type SelectedEntry = {
+	key: 'month' | 'year' | 'day'
+	target: HTMLSelectElement
+}
+const currentYear = new Date().getFullYear()
+const days: number[] = new Array(32).fill(null).map((v, index) => index + 1)
+const months: number[] = new Array(12).fill(null).map((v, index) => index + 1)
+const years: number[] = new Array(100)
+	.fill(null)
+	.map((v, index) => currentYear - index)
+
+const { error, setValue, value } = useField('dob')
+if (!value.value) {
+	setValue({ day: -1, month: -1, year: -1 })
+}
+function onSelect(entry: SelectedEntry) {
+	let key: string = entry.key
+	let newEntryVal: number | undefined =
+		Number(entry.target.value) === -1
+			? undefined
+			: Number(entry.target.value)
+	if (!newEntryVal) {
+		if (!value.value) {
+			return
+		}
+		if (Object.keys(value.value).length === 1 && key in value.value) {
+			setValue(undefined)
+		} else {
+			const newVal = { ...value.value }
+			delete newVal[key]
+
+			setValue(newVal)
+		}
+	} else {
+		if (!value.value) {
+			setValue({ [key]: newEntryVal })
+		} else {
+			setValue({ ...value.value, [key]: newEntryVal })
+		}
+	}
+}
+</script>
 <template>
 	<div class="col-3">
 		<label class="form-label" for="phone">Ngày Sinh</label>
@@ -9,6 +52,7 @@
 					<select
 						class="form-select"
 						name="day"
+						v-model="value['day']"
 						@change="
 							onSelect({
 								key: 'day',
@@ -27,6 +71,7 @@
 					<select
 						class="form-select"
 						name="month"
+						v-model="value['month']"
 						@change="
 							onSelect({
 								key: 'month',
@@ -48,6 +93,7 @@
 					<select
 						class="form-select"
 						name="year"
+						v-model="value['year']"
 						@change="
 							onSelect({
 								key: 'year',
@@ -66,47 +112,4 @@
 		<p class="form-message error" v-if="error">{{ error }}</p>
 	</div>
 </template>
-
-<script setup lang="ts">
-type SelectedEntry = {
-	key: 'month' | 'year' | 'day'
-	target: HTMLSelectElement
-}
-const currentYear = new Date().getFullYear()
-const days: number[] = new Array(32).fill(null).map((v, index) => index + 1)
-const months: number[] = new Array(12).fill(null).map((v, index) => index + 1)
-const years: number[] = new Array(100)
-	.fill(null)
-	.map((v, index) => currentYear - index)
-
-const { error, setValue, value } = useField('dob')
-
-function onSelect(entry: SelectedEntry) {
-	let key: string = entry.key
-	let newEntryVal: number | undefined =
-		Number(entry.target.value) === -1
-			? undefined
-			: Number(entry.target.value)
-	if (!newEntryVal) {
-		if (!value.value) {
-			return
-		}
-		if (Object.keys(value.value).length === 1 && key in value.value) {
-			setValue(undefined)
-		} else {
-			const newVal = { ...value.value }
-			delete newVal[key]
-			setValue(newVal)
-		}
-	} else {
-		if (!value.value) {
-			console.log({ [key]: newEntryVal })
-			setValue({ [key]: newEntryVal })
-		} else {
-			setValue({ ...value.value, [key]: newEntryVal })
-		}
-	}
-}
-</script>
-
 <style scoped></style>

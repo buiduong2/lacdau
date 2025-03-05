@@ -1,5 +1,9 @@
+type Option = {
+	liveTime?: number
+	isSuccess?: boolean
+}
 type Injected = {
-	notification: (msg: string) => Promise<void>
+	notification: (msg: string, option?: Option) => Promise<void>
 }
 export function useNotification() {
 	const injected = inject<Injected>('notification')

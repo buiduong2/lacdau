@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import AppDataTableClientPage from '@/components/page/app/table/AppDataTableClientPage.vue'
 import type { TableFacetedFilterInput } from '@/components/page/app/table/types'
-import { getTableClientDefaultConfig } from '@/components/page/app/table/utils'
+import {
+  defaulthandleRemoveByIdIn,
+  getTableClientDefaultConfig,
+} from '@/components/page/app/table/utils'
 import { columns } from '@/components/page/relate-groups/table/column'
+import { toast } from '@/components/ui/toast'
 import { useVueTable } from '@tanstack/vue-table'
 import { storeToRefs } from 'pinia'
 definePage({
-  meta: { breadcrumb: ['Nhóm sản phẩm', 'Danh sách'] },
+  meta: { breadcrumb: 'Danh sách' },
 })
 const store = useRelateStore()
 await store.fetchInit()
@@ -20,11 +24,18 @@ const filterInputs: TableFacetedFilterInput[] = [
     label: 'Tên',
   },
 ]
+
+const action = useTableAction({
+  onCreate: '/relate-groups/create',
+  onEdit: '/relate-groups/[id]',
+  removeByIdIn: (id, done) => {
+    defaulthandleRemoveByIdIn(id, done, toast)
+  },
+})
 </script>
 <template>
   <AppDataTableClientPage
-    create-route-name="/relate-groups/create"
-    update-route-name="/relate-groups/[id]"
+    :action="action"
     :table="table"
     :filter-inputs="filterInputs"
     heading="Nhóm sản phẩm"

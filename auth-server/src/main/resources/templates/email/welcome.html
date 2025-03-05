@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{email/layout::layout(
+    title=~{::#title/text()},
+    preview=~{::#preview/text()}, 
+    topContents=~{::#top-content}, 
+    actionUrl=${email.tokenUrl},   
+    actionText=~{::#action-text/text()},
+    bottomContents=~{::#bottom-content},
+)}">
+
+<head>
+    <title>Lắc đầu - Logout</title>
+</head>
+
+<body>
+
+    <h1 id="title">Chào mừng bạn</h1>
+    <p id="preview">Chúng tôi rất vui mừng chào đón bạn đến với Lắc Đầu 🎉 .</p>
+
+
+    <div id="top-content">
+        <p> Xin chào
+            <b th:text="${email.displayName}">
+                Tên người dùng
+            </b>
+        </p>
+
+        <p>
+            Chúng tôi rất vui mừng chào đón bạn đến với <b>Lắc đầu </b>! 🎉
+            <br>
+            Tại đây, bạn sẽ tìm thấy hàng nghìn sản phẩm tuyệt vời cùng các ưu đãi độc quyền.
+        </p>
+
+        <p> Để bắt đầu mua sắm và trải nghiệm dịch vụ của chúng tôi, vui lòng xác thực tài khoản của bạn bằng cách nhấp
+            vào
+            nút bên dưới</p>
+    </div>
+    <a id="action-text">👉 Xác thực tài khoản</a>
+
+    <div id="bottom-content">
+        <h4>Tại sao bạn nên chọn Lắc đầu </h4>
+        <ul
+            style="list-style: disc; margin: 0px 0px 1rem; padding: 0px 0px 0px 2rem; font-size: 0.875rem; line-height: 1.25rem; font-weight: 400;">
+            <li> 🛍️ Sản phẩm chất lượng, giá cả hợp lý </li>
+            <li> 🚚 Giao hàng nhanh chóng, tiện lợi </li>
+            <li> 💳 Thanh toán an toàn, bảo mật </li>
+        </ul>
+
+        <p>
+            Sau khi xác thực tài khoản, đừng quên ghé thăm cửa hàng của chúng tôi
+        </p>
+
+        <p>Chúc bạn một ngày tuyệt vời!</p>
+        <p>Trân trọng, </p>
+        <p>Đội ngũ Lắc đầu</p>
+    </div>
+
+</body>
+
+</html>

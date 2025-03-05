@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::layout(
+    subTitle=~{::title/text()},
+    layoutTitle=~{::#layout-title/text()},
+    layoutDesc=~{::#layout-desc/text()},
+    mainContent=~{::#main-content},
+    otherStaticResources=null
+)}">
+
+<head>
+    <title>Xác thực Email</title>
+</head>
+
+<body>
+
+    <h1 id="layout-title">Xác thực tài khoản lắc đầu</h1>
+    <p id="layout-desc">Khi xác thực thành công chúng bạn sẽ có thể tiếp cận thêm nhiều dịch vụ tiện ích của chúng tôi
+    </p>
+
+
+    <div class="max-w-md" id="main-content">
+        <div th:with="result=200">
+            <div th:if="${result >= 400}" class="p-5 bg-red-200 font-semibold">
+                <h2 class="text-red-600 text-2xl "> Đã có lỗi xảy ra</h1>
+                    <p class="mt-2">
+                        <th:block th:if="${result == 400}">Đường dãn không chính xác</th:block>
+                        <th:block th:if="${result == 404}">Token không hợp lệ hoặc đã hết hạn.
+                            <br> bạn vui lòng gửi
+                            lại
+                            Token khác hoặc thử lại sau
+                        </th:block>
+                        <th:block th:if="${result == 500}">
+                            Đã có lỗi xảy ra. Vui lòng thử lại sau
+                        </th:block>
+                    </p>
+
+            </div>
+
+            <div th:if="${result == 200}" class="p-5 bg-green-300 font-semibold">
+                <h2 class="text-2xl text-green-700">Thành Công</h2>
+                <p class="mt-2 antialiased">Email <span th:text="${user?.email} ?: _">email@gmail.com</span> đã xác
+                    thực thành công. <br> Cảm ơn bạn đã sử
+                    dụng dịch vụ
+                    của chúng tôi</p>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>

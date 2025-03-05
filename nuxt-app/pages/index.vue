@@ -10,7 +10,7 @@ useSeoMeta({
 })
 defineProps()
 const products = getProducts()
-const slideSubCategories = getCategories()
+const slideSubCategories = getSubCategories()
 const slideMainCategories = getMainCategory()
 </script>
 

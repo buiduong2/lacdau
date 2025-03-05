@@ -1,10 +1,13 @@
 package com.backend.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +29,11 @@ public class ProductController {
     @GetMapping
     public Page<ProductSummaryDTO> findAll(FilterParam param, Pageable pageable) {
         return productService.findSummariesBy(param, pageable);
+    }
+
+    @GetMapping("/list")
+    public List<ProductSummaryDTO> findByIdIn(@RequestParam List<String> ids) {
+        return productService.finSummaryDTOsByProductCodeIn(ids);
     }
 
     @GetMapping("/filter/{categoryId}")

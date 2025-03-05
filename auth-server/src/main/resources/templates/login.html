@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::layout(
+    subTitle=~{::title/text()},
+    layoutTitle=~{::#layout-title/text()},
+    layoutDesc=~{::#layout-desc/text()},
+    mainContent=~{::#main-content},
+    otherStaticResources=null
+)}">
+
+<head>
+    <title>Đăng nhập</title>
+</head>
+
+<body>
+
+    <h1 id="layout-title">Đăng nhập lắc đầu</h1>
+    <p id="layout-desc">Mỗi người nên sử dụng riêng tài khoản, tài khoản nhiều người dùng có thể sẽ bị mất an toàn thông
+        tin</p>
+
+
+    <div class="max-w-md" id="main-content">
+        
+        <th:block th:replace="~{fragment::loginMessage}"></th:block>
+        
+        <form class="mt-8  grid grid-cols-1 gap-6" method="POST" th:action="@{/login}" th:object="${data}">
+            <input th:replace="~{fragment::input(
+                label='Tên tài khoản',
+                type='text',
+                placeholder='buiduong',
+                name='username',
+                defaultValue=*{username},
+                error=${#fields.errors('username')}
+                )
+            }" />
+
+            <input th:replace="~{fragment::input(
+                label='Mật khẩu',
+                type='password',
+                placeholder='*******',
+                name='password',
+                defaultValue=*{password},
+                error=${#fields.errors('password')}
+                )
+            }" />
+            <button class="bg-green-400 p-3 text-white hover:bg-green-300 text-lg">
+                Đăng nhập
+            </button>
+        </form>
+        <div class="mt-5"><a class="p-3 block rounded border text-center" th:href="@{/oauth2/authorization/github}">Đăng
+                nhập bằng Github</a></div>
+        <div class="mt-5"><a class="p-3 block rounded border text-center" th:href="@{/oauth2/authorization/google}">Đăng
+                nhập bằng Google</a></div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::layout(
+    subTitle=~{::title/text()},
+    layoutTitle=~{::#layout-title/text()},
+    layoutDesc=~{::#layout-desc/text()},
+    mainContent=~{::#main-content},
+    otherStaticResources=~{::#static-resources}
+)}">
+
+<head>
+    <title>Trang cá nhân</title>
+
+    <style id="static-resources">
+        tbody tr {
+            counter-increment: rowNumber;
+            /* Tăng giá trị bộ đếm */
+        }
+
+        tbody tr td:first-child::before {
+            content: counter(rowNumber);
+            /* Hiển thị giá trị bộ đếm */
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="layout-title">Trang cá nhân</h1>
+    <p id="layout-desc">Xem thông tin quyền hạn của bạn</p>
+
+
+    <div class="max-w-md" id="main-content">
+        <th:block sec:authorize="isAuthenticated">
+            <div class="prose prose prose-slate">
+                <ol>
+                    <li th:each="p : ${permissions}" th:object="${p}">
+                        <h3 th:text="${permissionDesc.get(p.permission)}">Nội dung quyền</h3>
+                        <ul>
+                            <li>Được cấp bởi:
+                                <b th:if="*{createdBy}" th:text="*{createdBy.displayName}">Người tạo</b>
+                            </li>
+                            <li>Được thay đổi bởi: <b th:if="*{updatedBy}"
+                                    th:text="*{updatedBy.displayName}">Người tạo</b></li>
+                            <li>Ngày tạo quyền: <b th:text="*{#temporals.format(createdAt)}">12-12-12</b></li>
+                            <li>Ngày thay đổi quyền:
+                                <b th:text="*{#temporals.format(updatedAt)}">
+                                    Bùi Đức Dương
+                                </b>
+                            </li>
+                            <li>Hiệu lực:
+                                <b th:if="*{revokedAt}" class="text-red-500">
+                                    Đã bị thu hồi vào: <b th:text="*{#temporals.format(revokedAt)}"></b>
+                                </b>
+                                <b th:unless="*{revokedAt}" class="text-green-500">Có hiệu lực</b>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+        </th:block>
+
+    </div>
+
+
+</body>
+
+</html>

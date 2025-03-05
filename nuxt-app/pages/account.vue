@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue/dist/iconify.js'
 
+const store = useAuthStore()
 </script>
 <template>
 	<AppBreadcrumb
@@ -18,9 +20,52 @@
 								<NuxtLink
 									class="side-bar__btn"
 									active-class="current"
-									to="/account/order-history"
+									:to="{
+										name: 'account-order-status',
+										params: { status: 'pending' }
+									}"
 								>
-									Danh sách mua hàng
+									<Icon icon="lucide:wallet" />
+									<span>Chờ xác nhận</span>
+								</NuxtLink>
+							</div>
+							<div class="side-bar-item">
+								<NuxtLink
+									class="side-bar__btn"
+									active-class="current"
+									:to="{
+										name: 'account-order-status',
+										params: { status: 'processing' }
+									}"
+								>
+									<Icon icon="lucide:truck" />
+									<span>Chờ lấy hàng</span>
+								</NuxtLink>
+							</div>
+							<div class="side-bar-item">
+								<NuxtLink
+									class="side-bar__btn"
+									active-class="current"
+									:to="{
+										name: 'account-order-status',
+										params: { status: 'completed' }
+									}"
+								>
+									<Icon icon="lucide:package-check" />
+									<span> Đã hoàn thành </span>
+								</NuxtLink>
+							</div>
+							<div class="side-bar-item">
+								<NuxtLink
+									class="side-bar__btn"
+									active-class="current"
+									:to="{
+										name: 'account-order-status',
+										params: { status: 'canceled' }
+									}"
+								>
+									<Icon icon="lucide:circle-x" />
+									<span> Đã hủy </span>
 								</NuxtLink>
 							</div>
 						</div>
@@ -32,24 +77,38 @@
 								<NuxtLink
 									class="side-bar__btn"
 									active-class="current"
-									to="/account/profile"
+									to="/account/customer"
 								>
-									Thông tin cá nhân
+									<Icon icon="lucide:user" />
+									<span> Hồ sơ</span>
 								</NuxtLink>
 							</div>
+
 							<div class="side-bar-item">
-								<NuxtLink
+								<button
 									class="side-bar__btn"
-									active-class="current"
-									to="/account/password"
+									@click="store.authInfo"
 								>
-									Thay đổi mật khẩu
-								</NuxtLink>
+									<Icon icon="lucide:users" />
+									<span>Tài khoản</span>
+								</button>
+							</div>
+							<div class="side-bar-item">
+								<button
+									class="side-bar__btn"
+									@click="store.changePassword"
+								>
+									<Icon icon="lucide:lock" />
+									<span>Bảo mật</span>
+								</button>
 							</div>
 						</div>
 						<div class="side-bar-group">
 							<div class="side-bar-item">
-								<button class="side-bar__btn btn--logout">
+								<button
+									class="side-bar__btn btn--logout"
+									@click="store.logout"
+								>
 									Log-out
 								</button>
 							</div>

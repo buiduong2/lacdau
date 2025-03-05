@@ -1,8 +1,10 @@
-import type { RouteLocationRaw } from "vue-router"
-import type { RouteRecordName } from "vue-router"
-import type { RouteNamedMap } from "vue-router/auto-routes"
+import type { RouteLocationRaw } from 'vue-router'
 
 export type ID = number
+
+export type DeepPartial<T> = {
+	[K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
+}
 
 export interface SimpleCategory {
 	id: ID
@@ -39,16 +41,6 @@ export interface SortPolicy {
 }
 
 export interface OtherFilter extends SortPolicy {}
-// export interface Product {
-// 	id: ID
-// 	name: string
-// 	price: number
-// 	quantity: number
-// 	discountPercentage: number
-// 	img: string
-// 	slug: string
-// 	href: string
-// }
 
 export interface ToHrefAble {
 	id: ID

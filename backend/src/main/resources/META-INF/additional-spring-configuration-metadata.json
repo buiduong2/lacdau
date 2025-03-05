@@ -1,12 +1,22 @@
 {"properties": [
   {
-    "name": "CLOUDINARY_URL",
+    "name": "custom.client.origins",
     "type": "java.lang.String",
-    "description": "A description for 'CLOUDINARY_URL'"
+    "description": "A description for 'custom.client.origins'"
   },
   {
-    "name": "CLOUDINARY_URL",
+    "name": "custom.cloudinary.url",
     "type": "java.lang.String",
-    "description": "A description for 'CLOUDINARY_URL'"
+    "description": "A description for 'custom.cloudinary.url'"
+  },
+  {
+    "name": "custom.auth.key_set_uri",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.auth.key_set_uri'"
+  },
+  {
+    "name": "custom.mail.client.domain",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.mail.client.domain'"
   }
 ]}

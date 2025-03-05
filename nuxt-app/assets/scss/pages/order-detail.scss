@@ -1,0 +1,206 @@
+.order-card {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #e2e2e2;
+
+    .order-card-header {
+        margin-bottom: 15px;
+
+        .order-card-header__title {
+
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.5;
+            display: flex;
+            gap: 5px;
+
+            svg {
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+.order-info-table {
+    font-size: 1.45rem;
+    line-height: 1.5;
+    border-collapse: separate;
+
+    /* Khoảng cách theo chiều ngang */
+    &.border-spacing-x-1 {
+        border-spacing: 4px 0;
+    }
+
+    &.border-spacing-x-2 {
+        border-spacing: 8px 0;
+    }
+
+    &.border-spacing-x-3 {
+        border-spacing: 12px 0;
+    }
+
+    &.border-spacing-x-4 {
+        border-spacing: 16px 0;
+    }
+
+    &.border-spacing-x-5 {
+        border-spacing: 20px 0;
+    }
+
+    tbody {
+
+
+        th {
+            min-width: 80px;
+            text-align: left;
+            font-weight: 700;
+
+            &::after {
+                content: ":";
+            }
+
+        }
+
+        tr:last-child {
+            border: 0;
+        }
+
+        tr {
+            border: 1px;
+        }
+
+        b {
+            font-weight: 700;
+        }
+    }
+
+
+
+}
+
+/* Text Colors */
+.text-primary {
+    color: #007bff;
+}
+
+/* Màu xanh dương */
+.text-secondary {
+    color: #6c757d;
+}
+
+/* Màu xám */
+.text-success {
+    color: #28a745;
+}
+
+/* Màu xanh lá */
+.text-danger {
+    color: #dc3545;
+}
+
+/* Màu đỏ */
+.text-warning {
+    color: #ffc107;
+}
+
+/* Màu vàng */
+.text-info {
+    color: #17a2b8;
+}
+
+/* Màu xanh ngọc */
+.text-light {
+    color: #f8f9fa;
+}
+
+/* Màu trắng/xám nhạt */
+.text-dark {
+    color: #343a40;
+}
+
+
+.order-detail-table-wrapper {
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    .order-detail-table {
+
+        .table__header .table__row,
+        .table__row:not(:last-child) {
+            border-bottom: 1px solid #6c757d;
+
+        }
+
+        .table__cell {
+            padding: 20px 5px;
+        }
+
+
+
+
+        .table__header {
+            font-weight: 700;
+
+        }
+
+        .table__body {
+            .table__cell {
+                vertical-align: top;
+            }
+
+            .detail__img {
+
+                .img {
+                    width: 100px;
+                    min-width: 100px;
+                }
+
+                img {
+                    max-width: 100%;
+                    aspect-ratio: 1/1;
+                }
+            }
+
+            .detail__info {
+                min-width: 150px;
+                max-width: 400px;
+                
+                .detail__title {
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    color: #333;
+                    line-height: 1.5;
+
+                }
+
+                .detail__id {
+                    color: #818181;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    line-height: 1.9;
+
+                    svg {
+                        font-size: 0.8rem;
+                    }
+                }
+
+                .detail__msg {
+                    font-weight: 700;
+                }
+
+            }
+
+            .detail__total-price {
+                font-weight: 700;
+            }
+
+            .table__cell:not(.detail__info) {
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+    }
+}

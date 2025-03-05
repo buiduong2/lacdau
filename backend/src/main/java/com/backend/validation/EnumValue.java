@@ -10,7 +10,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Documented
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD,ElementType.TYPE_USE})
 @Constraint(validatedBy = EnumValueValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EnumValue {

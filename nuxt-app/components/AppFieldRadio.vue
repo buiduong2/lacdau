@@ -14,6 +14,7 @@
 					type="radio"
 					:name="name"
 					:value="value.value"
+                    :checked="value.value === defaultValue"
 					@input="onInput"
 				/>
 				{{ value.label }}
@@ -29,7 +30,7 @@ const props = defineProps<{
 	label: string
 	values: { value: any; label: string }[]
 }>()
-const { error, onBlur, onInput } = useField(props.name)
+const { error, onBlur, onInput, value:defaultValue } = useField(props.name)
 </script>
 
 <style scoped></style>

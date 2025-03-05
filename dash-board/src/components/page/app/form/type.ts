@@ -7,6 +7,27 @@ export interface FormFieldProps {
   isRequired?: boolean
 }
 
+export interface FormFieldCheckboxProps extends FormFieldProps {}
+
+export interface FormFieldSelectProps extends FormFieldProps {
+  placeholder: string
+  values: {
+    label: string
+    value: string
+  }[]
+}
+
+export interface FormFieldTextAreaProps extends FormFieldProps {
+  placeholder: string
+}
+
+export interface FormFieldRadioProps extends FormFieldProps {
+  options: {
+    value: string
+    label: string
+  }[]
+}
+
 export interface FormFieldInputProps extends FormFieldProps {
   type: string
   placeholder: string

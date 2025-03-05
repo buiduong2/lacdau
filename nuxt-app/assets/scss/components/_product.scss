@@ -189,14 +189,26 @@
             }
         }
 
-        .product-cart {
-            background-color: #cfeac1;
-            border-radius: 50%;
-            cursor: pointer;
+        .product-action {
+            .product-cart {
+                background-color: #cfeac1;
+                border-radius: 50%;
+                cursor: pointer;
 
-            &:hover {
-                background-color: #29a07e;
+                &:hover {
+                    background-color: #29a07e;
+                }
+
+            }
+
+            &:disabled {
+                .product-cart {
+                    background-color: #e4e9e1;
+                    cursor: not-allowed;
+                }
             }
         }
+
+
     }
 }

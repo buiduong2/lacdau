@@ -4,14 +4,7 @@ export function toSlug(str: string): string {
 	return _.kebabCase(_.deburr(str))
 }
 
-export function computedFinalPrice(
-	original: number,
-	discountPercent: number = 0
-) {
-	return original - (original * discountPercent) / 100
-}
-
-interface Child<T = unknown>  {
+interface Child<T = unknown> {
 	id: ID
 	parent?: T
 }
@@ -26,7 +19,7 @@ export function getAncestors<T extends Child<T>>(child: T): T[] {
 		currentChild = currentChild.parent
 	}
 
-	return result 
+	return result
 }
 
 interface Node<T> {

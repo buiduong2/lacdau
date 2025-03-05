@@ -4,7 +4,7 @@ import { toast } from '@/components/ui/toast'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 definePage({
-  meta: { breadcrumb: ['Nhóm sản phẩm', 'Chỉnh sửa'] },
+  meta: { breadcrumb: 'Chỉnh sửa' },
 })
 const groupId = Number(useRoute('/relate-groups/[id]').params.id)
 

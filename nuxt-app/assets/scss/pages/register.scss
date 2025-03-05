@@ -3,16 +3,49 @@
 .section-form {
 
 
+    margin-block: 20px;
+
     .section-form-inner {
         padding: 15px;
         background-color: white;
+        position: relative;
+
+        .logout-btn {
+            border-radius: 4px;
+            padding: 6px;
+            color: white;
+            background-color: red;
+            font-size: 1.6rem;
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+
+            &:hover {
+                opacity: 0.8;
+
+            }
+        }
 
         .section-title {
             text-align: center;
             font-size: 2.0rem;
             line-height: 30px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-weight: 500;
+        }
+
+        .section-description {
+            text-align: center;
+            max-width: 600px;
+            width: 80%;
+            line-height: 25px;
+            font-size: 1.5rem;
+            margin: 0 auto 20px;
+
+            .website-name {
+                font-weight: 700;
+            }
         }
 
         .form {
