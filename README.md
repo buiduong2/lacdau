@@ -68,6 +68,9 @@ Chức năng giỏ hàng
 ### 4. Kết quả đạt được
 
 #### Trang chủ
+- Tài khoản ADMIN : ROOT_USER
+- Mật khẩu: 1234567890
+
 ![Ảnh trang chủ](./screenshot/home.png)
 *Product Carosel dữ liệu giả chỉ để thử nghiệm. Không thêm vào giỏ hàng được*
 
