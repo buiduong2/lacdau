@@ -17,6 +17,8 @@ Dự án này là một hệ thống web bán hàng, được phát triển dự
 - Trang Quản trị: [https://lacdau-dashboard.onrender.com/](https://lacdau-dashboard.onrender.com/)
 - Trang Backend API: [http://lacdau-backend.onrender.com/](http://lacdau-backend.onrender.com/)
 - Trang Xác thực người dùng: [http://lacdau-auth.onrender.com/](http://lacdau-auth.onrender.com/)
+- Tài khoản ADMIN : ROOT_USER
+- Mật khẩu: 1234567890
 
 *Do các server được triển khai trên một nhà cung cấp dịch vụ trực tuyến với gói miễn phí, chúng sẽ tự động dừng hoạt động nếu không có tương tác trong một khoảng thời gian. Khi khởi động lại, có thể mất từ 5-10 phút để server hoạt động trở lại. Để giảm thiểu thời gian chờ, hãy truy cập đồng thời cả 4 đường dẫn để khởi động dự án nhanh hơn.*
 
@@ -68,9 +70,6 @@ Chức năng giỏ hàng
 ### 4. Kết quả đạt được
 
 #### Trang chủ
-- Tài khoản ADMIN : ROOT_USER
-- Mật khẩu: 1234567890
-
 ![Ảnh trang chủ](./screenshot/home.png)
 *Product Carosel dữ liệu giả chỉ để thử nghiệm. Không thêm vào giỏ hàng được*
 
